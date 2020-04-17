@@ -1,6 +1,7 @@
 package action;
 
 import annotation.ExecBy;
+import constants.Constants.Arguments;
 
 public class CheckBox
 {
@@ -31,7 +32,7 @@ public class CheckBox
             ".length; i++) {checkboxes[i].checked = true;}")
     public String allClick;
 
-    @ExecBy(js = "return " + JSConstants.Objects.FIRST + ".checked;")
+    @ExecBy(js = "return " + Arguments.FIRST + ".checked;")
     public String checkBoxChecked;
 
 }

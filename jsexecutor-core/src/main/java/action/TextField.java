@@ -1,6 +1,7 @@
 package action;
 
 import annotation.ExecBy;
+import constants.Constants.Arguments;
 
 public class TextField
 {
@@ -10,9 +11,9 @@ public class TextField
         new JSFieldManager(this);
     }
 
-    @ExecBy(js = "var textContent = " + JSConstants.Objects.FIRST + ".textContent; \n" +
+    @ExecBy(js = "var textContent = " + Arguments.FIRST + ".textContent; \n" +
             "if(textContent !== '') {return textContent}\n" +
-            "else {return " + JSConstants.Objects.FIRST + ".value;}")
+            "else {return " + Arguments.FIRST + ".value;}")
     public String getText;
 
 }

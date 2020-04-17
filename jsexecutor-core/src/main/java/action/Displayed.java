@@ -1,6 +1,6 @@
 package action;
 
-
+import constants.Constants.Arguments;
 import annotation.ExecBy;
 
 public class Displayed
@@ -34,7 +34,7 @@ public class Displayed
             "    } while (pointContainer = pointContainer.parentNode);\n" +
             "    return false;\n" +
             "}\n" +
-            "return isVisible(" + Objects.FIRST + ")")
+            "return isVisible(" + Arguments.FIRST + ")")
     public String isDisplayed;
 
 

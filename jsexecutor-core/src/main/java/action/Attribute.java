@@ -2,6 +2,8 @@ package action;
 
 import annotation.ExecBy;
 
+import constants.Constants.Arguments;
+
 public class Attribute
 {
 
@@ -14,12 +16,12 @@ public class Attribute
      * isAttribute
      **/
 
-    @ExecBy(js = "var value = " + JSConstants.Objects.FIRST + ".getAttribute(" + JSConstants.Objects.SECOND + "); if(value !== null) {return true} else return false;")
+    @ExecBy(js = "var value = " + Arguments.FIRST + ".getAttribute(" + Arguments.SECOND + "); if(value !== null) {return true} else return false;")
     public String isAttributePresent;
 
-    @ExecBy(js = "return " + JSConstants.Objects.FIRST + ".getAttribute(" + JSConstants.Objects.SECOND + ");")
+    @ExecBy(js = "return " + Arguments.FIRST + ".getAttribute(" + Arguments.SECOND + ");")
     public String getAttribute;
 
-    @ExecBy(js = JSConstants.Objects.FIRST + ".style.backgroundColor = " + JSConstants.Objects.SECOND + "")
+    @ExecBy(js = Arguments.FIRST + ".style.backgroundColor = " + Arguments.SECOND + "")
     public String setBackgroundStyle;
 }

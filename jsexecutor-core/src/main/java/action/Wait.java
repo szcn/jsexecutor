@@ -1,6 +1,7 @@
 package action;
 
 import annotation.ExecBy;
+import constants.Constants.Arguments;
 
 public class Wait
 {
@@ -24,10 +25,10 @@ public class Wait
      * Object Second : ms
      */
     @ExecBy(js = "var checkExist = setInterval(function() {\n" +
-            "   if ($("+JSConstants.Objects.FIRST+").length) {\n" +
+            "   if ($("+Arguments.FIRST+").length) {\n" +
             "      console.log(\"Exists!\");\n" +
             "      clearInterval(checkExist);\n" +
             "   }\n" +
-            "}, "+JSConstants.Objects.SECOND+");" )
+            "}, "+Arguments.SECOND+");" )
     public String checkExist;
 }

@@ -18,6 +18,14 @@
         <java.version>11</java.version>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
