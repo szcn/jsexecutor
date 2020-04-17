@@ -2,13 +2,14 @@ package action;
 
 import constants.Constants.Arguments;
 import annotation.ExecBy;
+import manager.BuilderManager;
 
 public class MouseOver
 {
 
     public MouseOver()
     {
-        new JSFieldManager(this);
+        new BuilderManager(getClass().getEnclosingClass());
     }
 
     @ExecBy(jquery = "$(document.getElementById(" + Arguments.FIRST + ")).mouseover()")

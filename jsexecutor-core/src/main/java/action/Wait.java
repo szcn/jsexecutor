@@ -2,13 +2,14 @@ package action;
 
 import annotation.ExecBy;
 import constants.Constants.Arguments;
+import manager.BuilderManager;
 
 public class Wait
 {
 
     public Wait()
     {
-        new JSFieldManager(this);
+        new BuilderManager(getClass().getEnclosingClass());
     }
 
     /**

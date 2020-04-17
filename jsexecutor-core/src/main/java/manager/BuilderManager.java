@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class BuilderManager
 {
-    public BuilderManager(Class clz)
+    public BuilderManager(Class<?> clz)
     {
         buildIt(clz);
     }

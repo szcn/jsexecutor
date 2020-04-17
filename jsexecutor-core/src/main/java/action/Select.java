@@ -2,12 +2,13 @@ package action;
 
 import constants.Constants.Arguments;
 import annotation.ExecBy;
+import manager.BuilderManager;
 
 public class Select
 {
     public Select()
     {
-        new JSFieldManager(this);
+        new BuilderManager(getClass().getEnclosingClass());
     }
 
     @ExecBy(js = Arguments.FIRST + ".selectedIndex = " + Arguments.SECOND)

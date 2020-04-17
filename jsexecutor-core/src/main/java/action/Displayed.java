@@ -2,12 +2,13 @@ package action;
 
 import constants.Constants.Arguments;
 import annotation.ExecBy;
+import manager.BuilderManager;
 
 public class Displayed
 {
     public Displayed()
     {
-        new JSFieldManager(this);
+        new BuilderManager(getClass().getEnclosingClass());
     }
 
     @ExecBy(js = "function isVisible(elem) {\n" +

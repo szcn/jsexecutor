@@ -2,12 +2,13 @@ package action;
 
 import constants.Constants.Arguments;
 import annotation.ExecBy;
+import manager.BuilderManager;
 
 public class Random
 {
     public Random()
     {
-        new JSFieldManager(this);
+        new BuilderManager(getClass().getEnclosingClass());
     }
 
     @ExecBy(js = "return generate_random_string(" + Arguments.FIRST + ")\n" +

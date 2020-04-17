@@ -3,13 +3,14 @@ package action;
 import annotation.ExecBy;
 
 import constants.Constants.Arguments;
+import manager.BuilderManager;
 
 public class Attribute
 {
 
     public Attribute()
     {
-        new JSFieldManager(this);
+        new BuilderManager(getClass().getEnclosingClass());
     }
 
     /**

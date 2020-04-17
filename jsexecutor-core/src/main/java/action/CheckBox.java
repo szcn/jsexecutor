@@ -2,13 +2,14 @@ package action;
 
 import annotation.ExecBy;
 import constants.Constants.Arguments;
+import manager.BuilderManager;
 
 public class CheckBox
 {
 
     public CheckBox()
     {
-        new JSFieldManager(this);
+        new BuilderManager(getClass().getEnclosingClass());
     }
 
     @ExecBy(js = "var checkboxes = document.querySelectorAll('[type=\"checkbox\"]');\n" +
