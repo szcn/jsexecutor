@@ -15,10 +15,12 @@ import constants.Regex;
 import executor.JavaScriptExecutor;
 import lombok.extern.slf4j.Slf4j;
 import manager.BuilderManager;
+import manager.CastManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.How;
 import util.DataType;
 
@@ -30,10 +32,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class JavaScriptExecutorImpl implements JavaScriptExecutor
 {
     private JavascriptExecutor jExecutor;
+    private WebDriver driver;
+    private RemoteWebDriver remoteWebDriver;
 
     public JavaScriptExecutorImpl(WebDriver driver)
     {
+        this.driver = driver;
         this.jExecutor = (JavascriptExecutor) driver;
+    }
+
+    public JavaScriptExecutorImpl(RemoteWebDriver remoteWebDriver)
+    {
+        this.remoteWebDriver = remoteWebDriver;
+        this.jExecutor = (JavascriptExecutor) remoteWebDriver;
     }
 
     @Override
@@ -225,9 +236,10 @@ public class JavaScriptExecutorImpl implements JavaScriptExecutor
 
         if (object instanceof By)
         {
-            BuilderManager builderManager = new BuilderManager();
+            ///TODO : remotedriver veya webdriver için kontrol yapılı hangisi null deilse o gönderilmeli. şuanda webdriver gidiyor.sabit.
+            CastManager castManager = new CastManager(driver);
 
-            object = builderManager.objectCastWebElement(object);
+            object = castManager.castWebElement(object);
         }
 
         return executeScript(click.isVisibleClick, object);
