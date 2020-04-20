@@ -1,11 +1,14 @@
 package manager;
 
 import exception.JavaScriptExecutorException;
+import lombok.SneakyThrows;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 
+import javax.management.InstanceNotFoundException;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,15 +18,24 @@ public class CastManager
     private RemoteWebDriver remoteWebDriver;
     private WebDriver webDriver;
 
-    public CastManager(WebDriver webDriver)
+    @SneakyThrows
+    public CastManager(Object object)
     {
-        this.webDriver = webDriver;
+        if (object instanceof WebDriver)
+            {this.webDriver = (WebDriver) object;}
+
+        else if (object instanceof RemoteWebDriver)
+            {this.remoteWebDriver = (RemoteWebDriver) object;}
+        else
+        {
+            throw new InstanceNotFoundException("Object is not instance of driver class");
+        }
     }
 
-    public CastManager(RemoteWebDriver remoteWebDriver)
+    /*public CastManager(RemoteWebDriver remoteWebDriver)
     {
         this.remoteWebDriver = remoteWebDriver;
-    }
+    }*/
 
     public WebElement castWebElement(Object o)
     {

@@ -1,766 +1,222 @@
 package executor.impl;
 
-import action.Attribute;
-import action.CheckBox;
-import action.Click;
-import action.Displayed;
-import action.MouseOver;
-import action.Random;
-import action.Select;
-import action.TextField;
-import action.Wait;
-import action.Zoom;
-import constants.Constants;
-import constants.Regex;
 import executor.JavaScriptExecutor;
-import lombok.extern.slf4j.Slf4j;
-import manager.BuilderManager;
-import manager.CastManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.How;
 import util.DataType;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-@Slf4j
-public class JavaScriptExecutorImpl implements JavaScriptExecutor
+public interface JavaScriptExecutorImpl
 {
-    private JavascriptExecutor jExecutor;
-    private WebDriver driver;
-    private RemoteWebDriver remoteWebDriver;
+    JavaScriptExecutor getDriver(WebDriver driver);
 
-    public JavaScriptExecutorImpl(WebDriver driver)
-    {
-        this.driver = driver;
-        this.jExecutor = (JavascriptExecutor) driver;
-    }
+    JavaScriptExecutor executeScript(String script, Object... args);
 
-    public JavaScriptExecutorImpl(RemoteWebDriver remoteWebDriver)
-    {
-        this.remoteWebDriver = remoteWebDriver;
-        this.jExecutor = (JavascriptExecutor) remoteWebDriver;
-    }
-
-    @Override
-    public JavascriptExecutor getDriver(WebDriver driver)
-    {
-
-        return (JavascriptExecutor) driver;
-
-    }
-
-    @Override
-    public <T> T executeScript(Class<T> clazz, String script, Object... args)
-    {
-
-        //log.info("*** JavaScript Info : { " + script + " }", "Argument Info : { " + args + " }");
-
-        return clazz.cast(jExecutor.executeScript(script, args));
-    }
-
-    @Override
-    public JavaScriptExecutor executeScript(String script, Object... args)
-    {
-
-        //log.info("*** JavaScript Info : { " + script + " }", "Argument Info : { " + args + " }");
-        jExecutor.executeScript(script, args);
-
-        return this;
-
-    }
-
-
-    @Override
-    public JavaScriptExecutor goToUrl(String url)
-    {
-        return executeScript(Constants.GoToUrl.HREF, url);
-    }
+    <T> T executeScript(Class<T> clazz, String script, Object... args);
 
     /**
-     * Constants.LocalStorage
+     * LocalStorage
      **/
 
-    @Override
-    public void removeItemFromLocalStorage(String item)
-    {
-        executeScript(String.format(Constants.LocalStorage.REMOVE_ITEM, item));
-    }
+    void removeItemFromLocalStorage(String item);
 
-    @Override
-    public boolean isItemPresentInLocalStorage(String item)
-    {
-        return !(executeScript(String.format(Constants.LocalStorage.GET_ITEM, item)) == null);
-    }
+    boolean isItemPresentInLocalStorage(String item);
 
-    @Override
-    public String getItemFromLocalStorage(String item)
-    {
-        return executeScript(String.class, String.format(Constants.LocalStorage.GET_ITEM, item));
-    }
+    String getItemFromLocalStorage(String item);
 
-    @Override
-    public String getKeyFromLocalStorage(int key)
-    {
-        return String.valueOf(executeScript(String.format(Constants.LocalStorage.GET_KEY, key)));
-    }
+    String getKeyFromLocalStorage(int key);
 
-    @Override
-    public Long getLocalStorageLength()
-    {
-        return Long.valueOf(String.valueOf(executeScript(Constants.LocalStorage.LENGTH)));
-    }
+    Long getLocalStorageLength();
 
-    public void setItemInLocalStorage(String item, String value)
-    {
-        executeScript(String.format(Constants.LocalStorage.SET_ITEM, item, value));
-    }
+    void setItemInLocalStorage(String item, String value);
 
-    @Override
-    public void clearLocalStorage()
-    {
-        executeScript(String.format(Constants.LocalStorage.CLEAR));
-    }
+    void clearLocalStorage();
 
     /**
-     * Constants.SessionStorage
+     * SessionStorage
      **/
 
-    @Override
-    public void removeItemFromSessionStorage(String item)
-    {
-        executeScript(String.format(Constants.SessionStorage.REMOVE_ITEM, item));
-    }
+    void removeItemFromSessionStorage(String item);
 
-    @Override
-    public boolean isItemPresentInSessionStorage(String item)
-    {
-        if (executeScript(String.format(
-                Constants.SessionStorage.GET_ITEM, item)) == null)
-            return false;
-        else
-            return true;
-    }
+    boolean isItemPresentInSessionStorage(String item);
 
-    @Override
-    public String getItemFromSessionStorage(String key)
-    {
-        return String.valueOf(executeScript(String.format(
-                Constants.SessionStorage.GET_ITEM, key)));
-    }
+    String getItemFromSessionStorage(String key);
 
-    @Override
-    public String getKeyFromSessionStorage(int key)
-    {
-        return String.valueOf(executeScript(String.format(
-                Constants.SessionStorage.GET_KEY, key)));
-    }
+    String getKeyFromSessionStorage(int key);
 
-    @Override
-    public Long getSessionStorageLength()
-    {
-        return Long.valueOf(String.valueOf(executeScript(Constants.SessionStorage.LENGTH)));
-    }
+    Long getSessionStorageLength();
 
-    @Override
-    public void setItemInSessionStorage(String item, String value)
-    {
-        executeScript(String.format(Constants.SessionStorage.SET_ITEM, item, value));
-    }
+    void setItemInSessionStorage(String item, String value);
 
-    @Override
-    public void clearSessionStorage()
-    {
-        executeScript(String.format(Constants.SessionStorage.CLEAR));
-    }
+    void clearSessionStorage();
 
     /**
-     * Constants.Scroll
+     * Scroll
      **/
 
-    @Override
-    public JavaScriptExecutor scrollWithElement(WebElement element)
-    {
-        return executeScript(Constants.Scroll.VIEW, element);
-    }
+    JavaScriptExecutor scrollWithElement(WebElement element);
 
-    @Override
-    public JavaScriptExecutor scrollHorizontally(int value)
-    {
-        return executeScript(Constants.Scroll.HORIZONTALLY, value);
-    }
+    JavaScriptExecutor scrollHorizontally(int value);
 
-    @Override
-    public JavaScriptExecutor scrollVertically(int value)
-    {
-        return executeScript(Constants.Scroll.VERTICALLY, value);
-    }
+    JavaScriptExecutor scrollVertically(int value);
 
-    @Override
-    public JavaScriptExecutor scrollHorizontallyAndVertically(int h, int v)
-    {
-        return executeScript(Constants.Scroll.HORIZONTALLY_AND_VERTICALLY, h, v);
-    }
+    JavaScriptExecutor scrollHorizontallyAndVertically(int h, int v);
 
-    @Override
-    public JavaScriptExecutor scrollDown()
-    {
-        return executeScript(Constants.Scroll.DOWN);
-    }
+    JavaScriptExecutor scrollDown();
 
-    @Override
-    public JavaScriptExecutor scrollUp()
-    {
-        return executeScript(Constants.Scroll.UP);
-    }
+    JavaScriptExecutor scrollUp();
 
-    @Override
-    public JavaScriptExecutor scrollPageCenter()
-    {
-        return executeScript(Constants.Scroll.PAGE_CENTER);
-    }
+    JavaScriptExecutor scrollPageCenter();
 
     /**
      * Click
      **/
 
-    @Override
-    public JavaScriptExecutor click(Object object)
-    {
-        Click click = new Click();
+    JavaScriptExecutor click(Object object);
 
-        if (object instanceof By)
-        {
-            ///TODO : remotedriver veya webdriver için kontrol yapılı hangisi null deilse o gönderilmeli. şuanda webdriver gidiyor.sabit.
-            CastManager castManager = new CastManager(driver);
+    JavaScriptExecutor forceClick(Object object);
 
-            object = castManager.castWebElement(object);
-        }
+    JavaScriptExecutor click(List<WebElement> object, int index);
 
-        return executeScript(click.isVisibleClick, object);
-    }
+    JavaScriptExecutor doubleClick(Object object);
 
-    @Override
-    public JavaScriptExecutor forceClick(Object object)
-    {
-        Click click = new Click();
+    JavaScriptExecutor randomElementClick(List<Object> objects);
 
-        BuilderManager builderManager = new BuilderManager();
 
-        How type = builderManager.assertValidFindType(object);
-        String locatorValue = builderManager.finderValue(object);
+    /** ElementIsDisplayed **/
 
-        switch (type)
-        {
-            case CLASS_NAME:
-                return executeScript(click.className, locatorValue);
-            case CSS:
-                return executeScript(click.css, locatorValue);
-            case ID:
-                return executeScript(click.id, locatorValue);
-            case LINK_TEXT:
-            case PARTIAL_LINK_TEXT:
-                return executeScript(click.linkText, locatorValue);
-            case NAME:
-                return executeScript(click.name, locatorValue);
-            case TAG_NAME:
-                return executeScript(click.tagName, locatorValue);
-            case XPATH:
-                return executeScript(click.xpath, locatorValue);
-        }
-
-        return executeScript(click.isVisibleClick, object);
-    }
-
-    @Override
-    public JavaScriptExecutor click(List<WebElement> object, int index)
-    {
-
-        BuilderManager builderManager = new BuilderManager();
-        String locatorValue;
-
-        Click click = new Click();
-
-        How type = builderManager.assertValidFindType(object);
-
-        if (type.equals(How.XPATH))
-            locatorValue = object.toString().split(Regex.FINDER_TYPE_FOR_WEB_ELEMENT)[1].split("[\\]]{" + (object.size() - 1) + "}$")[0];
-        else
-            locatorValue = builderManager.finderValue(object).split("]")[0];
-
-        switch (type)
-        {
-            case CLASS_NAME:
-                return executeScript(click.classNameAll, locatorValue, index);
-            case CSS:
-                return executeScript(click.cssAll, locatorValue, index);
-            case ID:
-                return executeScript(click.idAll, locatorValue, index);
-            case LINK_TEXT:
-            case PARTIAL_LINK_TEXT:
-                return executeScript(click.linkTextAll, locatorValue, index);
-            case NAME:
-                return executeScript(click.nameAll, locatorValue, index);
-            case TAG_NAME:
-                return executeScript(click.tagNameAll, locatorValue, index);
-            case XPATH:
-                return executeScript(click.xpathAll, locatorValue, index);
-        }
-
-        return executeScript(null);
-
-    }
-
-    @Override
-    public JavaScriptExecutor doubleClick(Object object)
-    {
-        Click click = new Click();
-
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(click.doubleClick, object);
-    }
-
-    @Override
-    public JavaScriptExecutor randomElementClick(List<Object> objects)
-    {
-        BuilderManager builderManager = new BuilderManager();
-
-        Random random = new Random();
-
-        How type = builderManager.assertValidFindType(objects);
-        String locatorValue = builderManager.finderValue(objects);
-
-        switch (type)
-        {
-            case CLASS_NAME:
-                return executeScript(random.elementClickByClassName, locatorValue);
-            case CSS:
-                return executeScript(random.randomElementClickByCSS, locatorValue);
-            case LINK_TEXT:
-            case PARTIAL_LINK_TEXT:
-                return executeScript(random.randomElementClickByLinkText, locatorValue);
-            case NAME:
-                return executeScript(random.randomElementClickByName, locatorValue);
-            case TAG_NAME:
-                return executeScript(random.randomElementClickByTagName, locatorValue);
-            case XPATH:
-                return executeScript(random.randomElementClickByXpath, locatorValue);
-        }
-
-        return executeScript(null);
-    }
-
-    @Override
-    public boolean isCheckBoxChecked(Object object)
-    {
-        CheckBox checkBox = new CheckBox();
-
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(Boolean.class, checkBox.checkBoxChecked, object);
-    }
-
-    @Override
-    public boolean isCheckedAllCheckBox()
-    {
-        CheckBox checkBox = new CheckBox();
-        return executeScript(Boolean.class, checkBox.checkedControl);
-    }
-
-    @Override
-    public JavaScriptExecutor checkAllCheckBox()
-    {
-        CheckBox checkBox = new CheckBox();
-        return executeScript(checkBox.allClick);
-    }
-
-    @Override
-    public JavaScriptExecutor setValue(Object object, String value)
-    {
-        return executeScript(Constants.SetValue.SEND_KEYS, object, value);
-    }
-
-    //TODO : thread sleep gibi davranmıyor. ms olarak doğru zamanı bekletmiyor olabilir.
-    @Override
-    public JavaScriptExecutor sleep(int milliseconds)
-    {
-        return executeScript(Constants.DelayedGreeting.SLEEP, milliseconds);
-    }
+    //boolean isDisplayed(String script);
 
     /**
-     * Clear
+     * Url
      **/
-
-    @Override
-    public JavaScriptExecutor clear(Object object)
-    {
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(Constants.Clear.CLEAR, object);
-    }
+    JavaScriptExecutor goToUrl(String url);
 
     /**
-     * getText
+     * Set Value
      **/
+    JavaScriptExecutor setValue(Object object, String value);
 
-    @Override
-    public String getText(Object object)
-    {
-        TextField textField = new TextField();
+    JavaScriptExecutor sleep(int time);
 
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
+    JavaScriptExecutor assertTrue(boolean value);
 
-            object = builderManager.objectCastWebElement(object);
-        }
+    JavaScriptExecutor assertFalse(boolean value);
 
-        return executeScript(String.class, textField.getText, object);
-    }
+    JavaScriptExecutor assertEqual(String expected, String actual);
 
-    /**
-     * Assertions
-     **/
-
-    @Override
-    public JavaScriptExecutor assertTrue(boolean value)
-    {
-        assertThat(value).isTrue();
-        return this;
-    }
-
-    @Override
-    public boolean isDisplayed(Object object)
-    {
-        Displayed displayed = new Displayed();
-
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(Boolean.class, displayed.isDisplayed, object);
-    }
-
-    @Override
-    public JavaScriptExecutor assertFalse(boolean value)
-    {
-        assertThat(value).isFalse();
-        return this;
-    }
-
-    @Override
-    public JavaScriptExecutor assertEqual(String expected, String actual)
-    {
-        assertThat(actual).isEqualTo(expected);
-        return this;
-    }
-
-    @Override
-    public boolean isAttributePresent(Object object, Object attributeName)
-    {
-        Attribute attribute = new Attribute();
-
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(Boolean.class, attribute.isAttributePresent, object, attributeName);
-    }
-
-    /**
-     * New Open Tab
-     **/
-
-    @Override
-    public JavaScriptExecutor newTab(String url)
-    {
-        return executeScript(Constants.NewTab.NEW_TAB, url);
-    }
-
-    /**
-     * Random Generate
-     **/
-
-    @Override
-    public Object randomGenerate(DataType dataType, int length)
-    {
-
-        Random random = new Random();
-
-        switch (dataType)
-        {
-            case STRING:
-                return executeScript(String.class, random.stringGenerate, length);
-            case NUMBER:
-                return executeScript(Number.class, random.numberGenerate, length);
-            case MIXED:
-                return executeScript(String.class, random.mixedGenerate, length);
-
-            default:
-                return "There is not Data Type = " + dataType;
-        }
-    }
-
-    /**
-     * Select
-     **/
-
-    @Override
-    public JavaScriptExecutor selectByValue(Object object, Object valueName)
-    {
-        Select select = new Select();
-
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(select.selectByValue, object, valueName);
-    }
-
-    @Override
-    public JavaScriptExecutor selectByIndex(Object object, Object index)
-    {
-        Select select = new Select();
-
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(select.selectByIndex, object, index);
-    }
-
-    @Override
-    public String getSelectedOptionVisibleText(Object object)
-    {
-        Select select = new Select();
-
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(String.class, select.getSelectedOptionVisibleText, object);
-    }
-
-    @Override
-    public Number getSelectedOptionIndex(Object object)
-    {
-        Select select = new Select();
-
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(Number.class, select.getSelectedOptionIndex, object);
-    }
-
-    @Override
-    public String getSelectedOptionValue(Object object)
-    {
-        Select select = new Select();
-
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(String.class, select.getSelectedOptionValue, object);
-    }
-
-    @Override
-    public List<Object> getSelectBoxOptionsValue(Object object)
-    {
-        Select select = new Select();
-
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(List.class, select.getOptionsValue, object);
-    }
-
-    @Override
-    public List<Object> getSelectBoxOptionsText(Object object)
-    {
-        Select select = new Select();
-
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
-
-            object = builderManager.objectCastWebElement(object);
-        }
-
-        return executeScript(List.class, select.getOptionsText, object);
-    }
+    JavaScriptExecutor clear(Object object);
 
     /**
      * Get Value
      **/
 
-    @Override
-    public String getAttribute(Object object, Object attributeName)
-    {
-        Attribute attribute = new Attribute();
+    String getText(Object object);
 
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
+    /**
+     * checkbox
+     **/
 
-            object = builderManager.objectCastWebElement(object);
-        }
+    boolean isCheckBoxChecked(Object object);
 
-        return executeScript(String.class, attribute.getAttribute, object, attributeName);
-    }
+    boolean isCheckedAllCheckBox();
+
+    JavaScriptExecutor checkAllCheckBox();
+
+    /**
+     * Assert
+     **/
+
+    boolean isDisplayed(Object object);
+
+    /**
+     * Is Attribute Present
+     **/
+
+    boolean isAttributePresent(Object object, Object attributeName);
+
+    /**
+     * Open Tab
+     **/
+
+    JavaScriptExecutor newTab(String url);
+
+    /**
+     * Random Generate
+     **/
+
+    Object randomGenerate(DataType dataType, int length);
+
+    /**
+     * Select
+     **/
+
+    JavaScriptExecutor selectByValue(Object object, Object valueName);
+
+    JavaScriptExecutor selectByIndex(Object object, Object index);
+
+    List<Object> getSelectBoxOptionsValue(Object object);
+
+    Object getSelectBoxOptionsText(Object object);
+
+    /**
+     * Selected Option
+     **/
+
+    String getSelectedOptionVisibleText(Object object);
+
+    Number getSelectedOptionIndex(Object object);
+
+    String getSelectedOptionValue(Object object);
+
+    /**
+     * Get Attribute
+     **/
+
+    Object getAttribute(Object object, Object attributeName);
 
     /**
      * Zoom
      **/
 
-    @Override
-    public JavaScriptExecutor pageZoom(int percentValue)
-    {
-        Zoom zoom = new Zoom();
-        return executeScript(zoom.pageZoom, percentValue);
-    }
+    JavaScriptExecutor pageZoom(int percentValue);
 
     /**
      * Mouse Over
      **/
 
-    @Override
-    public JavaScriptExecutor mouseOver(Object object)
-    {
-        BuilderManager builderManager = new BuilderManager();
-        MouseOver mouseOver = new MouseOver();
-
-        How type = builderManager.assertValidFindType(object);
-        String locatorValue = builderManager.finderValue(object);
-
-        switch (type)
-        {
-            case CLASS_NAME:
-                return executeScript(mouseOver.className, locatorValue);
-            case CSS:
-                return executeScript(mouseOver.css, locatorValue);
-            case ID:
-                return executeScript(mouseOver.id, locatorValue);
-            case LINK_TEXT:
-            case PARTIAL_LINK_TEXT:
-                return executeScript(mouseOver.linkText, locatorValue);
-            case NAME:
-                return executeScript(mouseOver.name, locatorValue);
-            case TAG_NAME:
-                return executeScript(mouseOver.tagName, locatorValue);
-            case XPATH:
-                return executeScript(mouseOver.xpath, locatorValue);
-
-
-            default:
-                return null;
-
-        }
-
-    }
+    JavaScriptExecutor mouseOver(Object object);
 
     /**
      * Page Refresh
      **/
 
-    @Override
-    public JavaScriptExecutor pageRefresh()
-    {
-        return executeScript(Constants.PageRefresh.REFRESH);
-    }
+    JavaScriptExecutor pageRefresh();
 
     /**
      * Get Location Path Name "www.siteName.com/LOCATION_PATH_NAME"
      **/
 
-    @Override
-    public String getLocationPathName()
-    {
-        return executeScript(String.class, Constants.GetLocationPathName.LOCATION_PATH_NAME);
-    }
-
-
-    @Override
-    public String getCurrentUrl()
-    {
-        return executeScript(String.class, Constants.GetCurrentUrl.CURRENT_URL);
-    }
+    String getLocationPathName();
 
     /**
-     * Wait
+     * Get Current URL
+     **/
+
+    String getCurrentUrl();
+
+    /**
+     * wait
      */
-    @Override
-    public JavaScriptExecutor ajaxComplete()
-    {
-        Wait wait = new Wait();
-        return executeScript(wait.ajaxComplete);
-    }
+    JavaScriptExecutor ajaxComplete();
 
-    @Override
-    public JavaScriptExecutor checkExist(Object object, int millisecond)
-    {
-        Wait wait = new Wait();
+    JavaScriptExecutor checkExist(Object object, int millisecond);
 
-        if (object instanceof By)
-        {
-            BuilderManager builderManager = new BuilderManager();
+    /**
+     * encode - decode
+     */
 
-            object = builderManager.objectCastWebElement(object);
-        }
+    String decode(String text);
 
-        return executeScript(wait.checkExist, object, millisecond);
-    }
-
-    @Override
-    public String decode(String text)
-    {
-        return executeScript(String.class, Constants.Decode.DECODE, text);
-    }
 }

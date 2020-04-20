@@ -3,6 +3,7 @@ package manager;
 import annotation.ExecBy;
 import constants.FinderType;
 import constants.Regex;
+import exception.JavaScriptExecutorException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.How;
 
@@ -21,23 +22,25 @@ public class BuilderManager
 
     private void buildIt(Class clz)
     {
-
         Arrays.stream(clz.getDeclaredFields()).parallel().filter(jField
                 -> jField.isAnnotationPresent(ExecBy.class)).forEach(jField
                 -> {
 
-            ExecBy scriptBy = jField.getAnnotation(ExecBy.class);
+            ExecBy execBy = jField.getAnnotation(ExecBy.class);
             jField.setAccessible(true);
             try
             {
-                if (!scriptBy.js().isEmpty())
-                    jField.set(clz, scriptBy.js());
-                if (!scriptBy.jquery().isEmpty())
-                    jField.set(clz, scriptBy.jquery());
+
+
+
+                if (!execBy.js().isEmpty())
+                    jField.set(clz, execBy.js());
+                if (!execBy.jquery().isEmpty())
+                    jField.set(clz, execBy.jquery());
             }
-            catch (IllegalAccessException e)
+            catch (IllegalAccessException ae)
             {
-                e.printStackTrace();
+                throw new JavaScriptExecutorException(ae);
             }
         });
     }

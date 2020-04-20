@@ -1,222 +1,764 @@
 package executor;
 
-import org.openqa.selenium.JavascriptExecutor;
+import action.Attribute;
+import action.CheckBox;
+import action.Click;
+import action.Displayed;
+import action.MouseOver;
+import action.Random;
+import action.Select;
+import action.TextField;
+import action.Wait;
+import action.Zoom;
+import constants.Constants;
+import constants.Regex;
+import executor.impl.JavaScriptExecutorImpl;
+import lombok.extern.slf4j.Slf4j;
+import manager.BuilderManager;
+import manager.CastManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.How;
 import util.DataType;
 
 import java.util.List;
 
-public interface JavaScriptExecutor
+import static org.assertj.core.api.Assertions.assertThat;
+
+@Slf4j
+public class JavaScriptExecutor implements JavaScriptExecutorImpl
 {
-    JavascriptExecutor getDriver(WebDriver driver);
+    private final JavaScriptExecutor jExecutor;
+    private final WebDriver driver;
+    /*private final RemoteWebDriver remoteWebDriver;*/
 
-    JavaScriptExecutor executeScript(String script, Object... args);
+    public JavaScriptExecutor(WebDriver driver)
+    {
+        this.driver = driver;
+        this.jExecutor = (JavaScriptExecutor) driver;
+    }
 
-    <T> T executeScript(Class<T> clazz, String script, Object... args);
+    /*public JavaScriptExecutor(RemoteWebDriver remoteWebDriver)
+    {
+        this.remoteWebDriver = remoteWebDriver;
+        this.jExecutor = (JavaScriptExecutor) remoteWebDriver;
+    }*/
+
+    @Override
+    public JavaScriptExecutor getDriver(WebDriver driver)
+    {
+
+        return (JavaScriptExecutor) driver;
+
+    }
+
+    @Override
+    public <T> T executeScript(Class<T> clazz, String script, Object... args)
+    {
+
+        //log.info("*** JavaScript Info : { " + script + " }", "Argument Info : { " + args + " }");
+
+        return clazz.cast(jExecutor.executeScript(script, args));
+    }
+
+    @Override
+    public JavaScriptExecutor executeScript(String script, Object... args)
+    {
+
+        //log.info("*** JavaScript Info : { " + script + " }", "Argument Info : { " + args + " }");
+        jExecutor.executeScript(script, args);
+
+        return this;
+
+    }
+
+
+    @Override
+    public JavaScriptExecutor goToUrl(String url)
+    {
+        return executeScript(Constants.GoToUrl.HREF, url);
+    }
 
     /**
-     * LocalStorage
+     * Constants.LocalStorage
      **/
 
-    void removeItemFromLocalStorage(String item);
+    @Override
+    public void removeItemFromLocalStorage(String item)
+    {
+        executeScript(String.format(Constants.LocalStorage.REMOVE_ITEM, item));
+    }
 
-    boolean isItemPresentInLocalStorage(String item);
+    @Override
+    public boolean isItemPresentInLocalStorage(String item)
+    {
+        return !(executeScript(String.format(Constants.LocalStorage.GET_ITEM, item)) == null);
+    }
 
-    String getItemFromLocalStorage(String item);
+    @Override
+    public String getItemFromLocalStorage(String item)
+    {
+        return executeScript(String.class, String.format(Constants.LocalStorage.GET_ITEM, item));
+    }
 
-    String getKeyFromLocalStorage(int key);
+    @Override
+    public String getKeyFromLocalStorage(int key)
+    {
+        return String.valueOf(executeScript(String.format(Constants.LocalStorage.GET_KEY, key)));
+    }
 
-    Long getLocalStorageLength();
+    @Override
+    public Long getLocalStorageLength()
+    {
+        return Long.valueOf(String.valueOf(executeScript(Constants.LocalStorage.LENGTH)));
+    }
 
-    void setItemInLocalStorage(String item, String value);
+    public void setItemInLocalStorage(String item, String value)
+    {
+        executeScript(String.format(Constants.LocalStorage.SET_ITEM, item, value));
+    }
 
-    void clearLocalStorage();
+    @Override
+    public void clearLocalStorage()
+    {
+        executeScript(String.format(Constants.LocalStorage.CLEAR));
+    }
 
     /**
-     * SessionStorage
+     * Constants.SessionStorage
      **/
 
-    void removeItemFromSessionStorage(String item);
+    @Override
+    public void removeItemFromSessionStorage(String item)
+    {
+        executeScript(String.format(Constants.SessionStorage.REMOVE_ITEM, item));
+    }
 
-    boolean isItemPresentInSessionStorage(String item);
+    @Override
+    public boolean isItemPresentInSessionStorage(String item)
+    {
+        if (executeScript(String.format(
+                Constants.SessionStorage.GET_ITEM, item)) == null)
+            return false;
+        else
+            return true;
+    }
 
-    String getItemFromSessionStorage(String key);
+    @Override
+    public String getItemFromSessionStorage(String key)
+    {
+        return String.valueOf(executeScript(String.format(
+                Constants.SessionStorage.GET_ITEM, key)));
+    }
 
-    String getKeyFromSessionStorage(int key);
+    @Override
+    public String getKeyFromSessionStorage(int key)
+    {
+        return String.valueOf(executeScript(String.format(
+                Constants.SessionStorage.GET_KEY, key)));
+    }
 
-    Long getSessionStorageLength();
+    @Override
+    public Long getSessionStorageLength()
+    {
+        return Long.valueOf(String.valueOf(executeScript(Constants.SessionStorage.LENGTH)));
+    }
 
-    void setItemInSessionStorage(String item, String value);
+    @Override
+    public void setItemInSessionStorage(String item, String value)
+    {
+        executeScript(String.format(Constants.SessionStorage.SET_ITEM, item, value));
+    }
 
-    void clearSessionStorage();
+    @Override
+    public void clearSessionStorage()
+    {
+        executeScript(String.format(Constants.SessionStorage.CLEAR));
+    }
 
     /**
-     * Scroll
+     * Constants.Scroll
      **/
 
-    JavaScriptExecutor scrollWithElement(WebElement element);
+    @Override
+    public JavaScriptExecutor scrollWithElement(WebElement element)
+    {
+        return executeScript(Constants.Scroll.VIEW, element);
+    }
 
-    JavaScriptExecutor scrollHorizontally(int value);
+    @Override
+    public JavaScriptExecutor scrollHorizontally(int value)
+    {
+        return executeScript(Constants.Scroll.HORIZONTALLY, value);
+    }
 
-    JavaScriptExecutor scrollVertically(int value);
+    @Override
+    public JavaScriptExecutor scrollVertically(int value)
+    {
+        return executeScript(Constants.Scroll.VERTICALLY, value);
+    }
 
-    JavaScriptExecutor scrollHorizontallyAndVertically(int h, int v);
+    @Override
+    public JavaScriptExecutor scrollHorizontallyAndVertically(int h, int v)
+    {
+        return executeScript(Constants.Scroll.HORIZONTALLY_AND_VERTICALLY, h, v);
+    }
 
-    JavaScriptExecutor scrollDown();
+    @Override
+    public JavaScriptExecutor scrollDown()
+    {
+        return executeScript(Constants.Scroll.DOWN);
+    }
 
-    JavaScriptExecutor scrollUp();
+    @Override
+    public JavaScriptExecutor scrollUp()
+    {
+        return executeScript(Constants.Scroll.UP);
+    }
 
-    JavaScriptExecutor scrollPageCenter();
+    @Override
+    public JavaScriptExecutor scrollPageCenter()
+    {
+        return executeScript(Constants.Scroll.PAGE_CENTER);
+    }
 
     /**
      * Click
      **/
 
-    JavaScriptExecutor click(Object object);
+    @Override
+    public JavaScriptExecutor click(Object object)
+    {
+        Click click = new Click();
 
-    JavaScriptExecutor forceClick(Object object);
+        if (object instanceof By)
+        {
+            ///TODO : remotedriver veya webdriver için kontrol yapılı hangisi null deilse o gönderilmeli. şuanda webdriver gidiyor.sabit.
+            CastManager castManager = new CastManager(driver);
 
-    JavaScriptExecutor click(List<WebElement> object, int index);
+            object = castManager.castWebElement(object);
+        }
 
-    JavaScriptExecutor doubleClick(Object object);
+        return executeScript(click.isVisibleClick, object);
+    }
 
-    JavaScriptExecutor randomElementClick(List<Object> objects);
+    @Override
+    public JavaScriptExecutor forceClick(Object object)
+    {
+        Click click = new Click();
 
+        BuilderManager builderManager = new BuilderManager();
 
-    /** ElementIsDisplayed **/
+        How type = builderManager.assertValidFindType(object);
+        String locatorValue = builderManager.finderValue(object);
 
-    //boolean isDisplayed(String script);
+        switch (type)
+        {
+            case CLASS_NAME:
+                return executeScript(click.className, locatorValue);
+            case CSS:
+                return executeScript(click.css, locatorValue);
+            case ID:
+                return executeScript(click.id, locatorValue);
+            case LINK_TEXT:
+            case PARTIAL_LINK_TEXT:
+                return executeScript(click.linkText, locatorValue);
+            case NAME:
+                return executeScript(click.name, locatorValue);
+            case TAG_NAME:
+                return executeScript(click.tagName, locatorValue);
+            case XPATH:
+                return executeScript(click.xpath, locatorValue);
+        }
+
+        return executeScript(click.isVisibleClick, object);
+    }
+
+    @Override
+    public JavaScriptExecutor click(List<WebElement> object, int index)
+    {
+
+        BuilderManager builderManager = new BuilderManager();
+        String locatorValue;
+
+        Click click = new Click();
+
+        How type = builderManager.assertValidFindType(object);
+
+        if (type.equals(How.XPATH))
+            locatorValue = object.toString().split(Regex.FINDER_TYPE_FOR_WEB_ELEMENT)[1].split("[\\]]{" + (object.size() - 1) + "}$")[0];
+        else
+            locatorValue = builderManager.finderValue(object).split("]")[0];
+
+        switch (type)
+        {
+            case CLASS_NAME:
+                return executeScript(click.classNameAll, locatorValue, index);
+            case CSS:
+                return executeScript(click.cssAll, locatorValue, index);
+            case ID:
+                return executeScript(click.idAll, locatorValue, index);
+            case LINK_TEXT:
+            case PARTIAL_LINK_TEXT:
+                return executeScript(click.linkTextAll, locatorValue, index);
+            case NAME:
+                return executeScript(click.nameAll, locatorValue, index);
+            case TAG_NAME:
+                return executeScript(click.tagNameAll, locatorValue, index);
+            case XPATH:
+                return executeScript(click.xpathAll, locatorValue, index);
+        }
+
+        return executeScript(null);
+
+    }
+
+    @Override
+    public JavaScriptExecutor doubleClick(Object object)
+    {
+        Click click = new Click();
+
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
+
+            object = castManager.castWebElement(object);
+        }
+
+        return executeScript(click.doubleClick, object);
+    }
+
+    @Override
+    public JavaScriptExecutor randomElementClick(List<Object> objects)
+    {
+        BuilderManager builderManager = new BuilderManager();
+
+        Random random = new Random();
+
+        How type = builderManager.assertValidFindType(objects);
+        String locatorValue = builderManager.finderValue(objects);
+
+        switch (type)
+        {
+            case CLASS_NAME:
+                return executeScript(random.elementClickByClassName, locatorValue);
+            case CSS:
+                return executeScript(random.randomElementClickByCSS, locatorValue);
+            case LINK_TEXT:
+            case PARTIAL_LINK_TEXT:
+                return executeScript(random.randomElementClickByLinkText, locatorValue);
+            case NAME:
+                return executeScript(random.randomElementClickByName, locatorValue);
+            case TAG_NAME:
+                return executeScript(random.randomElementClickByTagName, locatorValue);
+            case XPATH:
+                return executeScript(random.randomElementClickByXpath, locatorValue);
+        }
+
+        return executeScript(null);
+    }
+
+    @Override
+    public boolean isCheckBoxChecked(Object object)
+    {
+        CheckBox checkBox = new CheckBox();
+
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
+
+            object = castManager.castWebElement(object);
+        }
+
+        return executeScript(Boolean.class, checkBox.checkBoxChecked, object);
+    }
+
+    @Override
+    public boolean isCheckedAllCheckBox()
+    {
+        CheckBox checkBox = new CheckBox();
+        return executeScript(Boolean.class, checkBox.checkedControl);
+    }
+
+    @Override
+    public JavaScriptExecutor checkAllCheckBox()
+    {
+        CheckBox checkBox = new CheckBox();
+        return executeScript(checkBox.allClick);
+    }
+
+    @Override
+    public JavaScriptExecutor setValue(Object object, String value)
+    {
+        return executeScript(Constants.SetValue.SEND_KEYS, object, value);
+    }
+
+    //TODO : thread sleep gibi davranmıyor. ms olarak doğru zamanı bekletmiyor olabilir.
+    @Override
+    public JavaScriptExecutor sleep(int milliseconds)
+    {
+        return executeScript(Constants.DelayedGreeting.SLEEP, milliseconds);
+    }
 
     /**
-     * Url
+     * Clear
      **/
-    JavaScriptExecutor goToUrl(String url);
+
+    @Override
+    public JavaScriptExecutor clear(Object object)
+    {
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
+
+            object = castManager.castWebElement(object);
+        }
+
+        return executeScript(Constants.Clear.CLEAR, object);
+    }
 
     /**
-     * Set Value
+     * getText
      **/
-    JavaScriptExecutor setValue(Object object, String value);
 
-    JavaScriptExecutor sleep(int time);
+    @Override
+    public String getText(Object object)
+    {
+        TextField textField = new TextField();
 
-    JavaScriptExecutor assertTrue(boolean value);
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
 
-    JavaScriptExecutor assertFalse(boolean value);
+            object = castManager.castWebElement(object);
+        }
 
-    JavaScriptExecutor assertEqual(String expected, String actual);
-
-    JavaScriptExecutor clear(Object object);
+        return executeScript(String.class, textField.getText, object);
+    }
 
     /**
-     * Get Value
+     * Assertions
      **/
 
-    String getText(Object object);
+    @Override
+    public JavaScriptExecutor assertTrue(boolean value)
+    {
+        assertThat(value).isTrue();
+        return this;
+    }
+
+    @Override
+    public boolean isDisplayed(Object object)
+    {
+        Displayed displayed = new Displayed();
+
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
+
+            object = castManager.castWebElement(object);
+        }
+
+        return executeScript(Boolean.class, displayed.isDisplayed, object);
+    }
+
+    @Override
+    public JavaScriptExecutor assertFalse(boolean value)
+    {
+        assertThat(value).isFalse();
+        return this;
+    }
+
+    @Override
+    public JavaScriptExecutor assertEqual(String expected, String actual)
+    {
+        assertThat(actual).isEqualTo(expected);
+        return this;
+    }
+
+    @Override
+    public boolean isAttributePresent(Object object, Object attributeName)
+    {
+        Attribute attribute = new Attribute();
+
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
+
+            object = castManager.castWebElement(object);
+        }
+
+        return executeScript(Boolean.class, attribute.isAttributePresent, object, attributeName);
+    }
 
     /**
-     * checkbox
+     * New Open Tab
      **/
 
-    boolean isCheckBoxChecked(Object object);
-
-    boolean isCheckedAllCheckBox();
-
-    JavaScriptExecutor checkAllCheckBox();
-
-    /**
-     * Assert
-     **/
-
-    boolean isDisplayed(Object object);
-
-    /**
-     * Is Attribute Present
-     **/
-
-    boolean isAttributePresent(Object object, Object attributeName);
-
-    /**
-     * Open Tab
-     **/
-
-    JavaScriptExecutor newTab(String url);
+    @Override
+    public JavaScriptExecutor newTab(String url)
+    {
+        return executeScript(Constants.NewTab.NEW_TAB, url);
+    }
 
     /**
      * Random Generate
      **/
 
-    Object randomGenerate(DataType dataType, int length);
+    @Override
+    public Object randomGenerate(DataType dataType, int length)
+    {
+
+        Random random = new Random();
+
+        switch (dataType)
+        {
+            case STRING:
+                return executeScript(String.class, random.stringGenerate, length);
+            case NUMBER:
+                return executeScript(Number.class, random.numberGenerate, length);
+            case MIXED:
+                return executeScript(String.class, random.mixedGenerate, length);
+
+            default:
+                return "There is not Data Type = " + dataType;
+        }
+    }
 
     /**
      * Select
      **/
 
-    JavaScriptExecutor selectByValue(Object object, Object valueName);
+    @Override
+    public JavaScriptExecutor selectByValue(Object object, Object valueName)
+    {
+        Select select = new Select();
 
-    JavaScriptExecutor selectByIndex(Object object, Object index);
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
 
-    List<Object> getSelectBoxOptionsValue(Object object);
+            object = castManager.castWebElement(object);
+        }
 
-    Object getSelectBoxOptionsText(Object object);
+        return executeScript(select.selectByValue, object, valueName);
+    }
+
+    @Override
+    public JavaScriptExecutor selectByIndex(Object object, Object index)
+    {
+        Select select = new Select();
+
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
+
+            object = castManager.castWebElement(object);
+        }
+
+        return executeScript(select.selectByIndex, object, index);
+    }
+
+    @Override
+    public String getSelectedOptionVisibleText(Object object)
+    {
+        Select select = new Select();
+
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
+
+            object = castManager.castWebElement(object);
+        }
+
+        return executeScript(String.class, select.getSelectedOptionVisibleText, object);
+    }
+
+    @Override
+    public Number getSelectedOptionIndex(Object object)
+    {
+        Select select = new Select();
+
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
+
+            object = castManager.castWebElement(object);
+        }
+
+        return executeScript(Number.class, select.getSelectedOptionIndex, object);
+    }
+
+    @Override
+    public String getSelectedOptionValue(Object object)
+    {
+        Select select = new Select();
+
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
+
+            object = castManager.castWebElement(object);
+        }
+
+        return executeScript(String.class, select.getSelectedOptionValue, object);
+    }
+
+    @Override
+    public List<Object> getSelectBoxOptionsValue(Object object)
+    {
+        Select select = new Select();
+
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
+
+            object = castManager.castWebElement(object);
+        }
+
+        return executeScript(List.class, select.getOptionsValue, object);
+    }
+
+    @Override
+    public List<Object> getSelectBoxOptionsText(Object object)
+    {
+        Select select = new Select();
+
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
+
+            object = castManager.castWebElement(object);
+        }
+
+        return executeScript(List.class, select.getOptionsText, object);
+    }
 
     /**
-     * Selected Option
+     * Get Value
      **/
 
-    String getSelectedOptionVisibleText(Object object);
+    @Override
+    public String getAttribute(Object object, Object attributeName)
+    {
+        Attribute attribute = new Attribute();
 
-    Number getSelectedOptionIndex(Object object);
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
 
-    String getSelectedOptionValue(Object object);
+            object = castManager.castWebElement(object);
+        }
 
-    /**
-     * Get Attribute
-     **/
-
-    Object getAttribute(Object object, Object attributeName);
+        return executeScript(String.class, attribute.getAttribute, object, attributeName);
+    }
 
     /**
      * Zoom
      **/
 
-    JavaScriptExecutor pageZoom(int percentValue);
+    @Override
+    public JavaScriptExecutor pageZoom(int percentValue)
+    {
+        Zoom zoom = new Zoom();
+        return executeScript(zoom.pageZoom, percentValue);
+    }
 
     /**
      * Mouse Over
      **/
 
-    JavaScriptExecutor mouseOver(Object object);
+    @Override
+    public JavaScriptExecutor mouseOver(Object object)
+    {
+        BuilderManager builderManager = new BuilderManager();
+        MouseOver mouseOver = new MouseOver();
+
+        How type = builderManager.assertValidFindType(object);
+        String locatorValue = builderManager.finderValue(object);
+
+        switch (type)
+        {
+            case CLASS_NAME:
+                return executeScript(mouseOver.className, locatorValue);
+            case CSS:
+                return executeScript(mouseOver.css, locatorValue);
+            case ID:
+                return executeScript(mouseOver.id, locatorValue);
+            case LINK_TEXT:
+            case PARTIAL_LINK_TEXT:
+                return executeScript(mouseOver.linkText, locatorValue);
+            case NAME:
+                return executeScript(mouseOver.name, locatorValue);
+            case TAG_NAME:
+                return executeScript(mouseOver.tagName, locatorValue);
+            case XPATH:
+                return executeScript(mouseOver.xpath, locatorValue);
+
+
+            default:
+                return null;
+
+        }
+
+    }
 
     /**
      * Page Refresh
      **/
 
-    JavaScriptExecutor pageRefresh();
+    @Override
+    public JavaScriptExecutor pageRefresh()
+    {
+        return executeScript(Constants.PageRefresh.REFRESH);
+    }
 
     /**
      * Get Location Path Name "www.siteName.com/LOCATION_PATH_NAME"
      **/
 
-    String getLocationPathName();
+    @Override
+    public String getLocationPathName()
+    {
+        return executeScript(String.class, Constants.GetLocationPathName.LOCATION_PATH_NAME);
+    }
+
+
+    @Override
+    public String getCurrentUrl()
+    {
+        return executeScript(String.class, Constants.GetCurrentUrl.CURRENT_URL);
+    }
 
     /**
-     * Get Current URL
-     **/
-
-    String getCurrentUrl();
-
-    /**
-     * wait
+     * Wait
      */
-    JavaScriptExecutor ajaxComplete();
+    @Override
+    public JavaScriptExecutor ajaxComplete()
+    {
+        Wait wait = new Wait();
+        return executeScript(wait.ajaxComplete);
+    }
 
-    JavaScriptExecutor checkExist(Object object, int millisecond);
+    @Override
+    public JavaScriptExecutor checkExist(Object object, int millisecond)
+    {
+        Wait wait = new Wait();
 
-    /**
-     * encode - decode
-     */
+        if (object instanceof By)
+        {
+            CastManager castManager = new CastManager(driver);
 
-    String decode(String text);
+            object = castManager.castWebElement(object);
+        }
 
+        return executeScript(wait.checkExist, object, millisecond);
+    }
+
+    @Override
+    public String decode(String text)
+    {
+        return executeScript(String.class, Constants.Decode.DECODE, text);
+    }
 }
