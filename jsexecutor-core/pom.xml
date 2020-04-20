@@ -15,7 +15,7 @@
     <properties>
         <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
-        <java.version>11</java.version>
+        <java.version>8</java.version>
     </properties>
 
     <!--<repositories>
@@ -61,10 +61,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
-                <!--<configuration>
+                <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                </configuration>-->
+                </configuration>
             </plugin>
         </plugins>
     </build>
