@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import manager.BuilderManager;
 import manager.CastManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
@@ -29,14 +30,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 public class JavaScriptExecutor implements JavaScriptExecutorImpl
 {
-    private final JavaScriptExecutor jExecutor;
+    private final JavascriptExecutor jExecutor;
     private final WebDriver driver;
     /*private final RemoteWebDriver remoteWebDriver;*/
 
     public JavaScriptExecutor(WebDriver driver)
     {
         this.driver = driver;
-        this.jExecutor = (JavaScriptExecutor) driver;
+        this.jExecutor = (JavascriptExecutor) driver;
     }
 
     /*public JavaScriptExecutor(RemoteWebDriver remoteWebDriver)
