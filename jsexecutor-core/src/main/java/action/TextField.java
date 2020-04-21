@@ -9,7 +9,7 @@ public class TextField
 
     public TextField()
     {
-        new BuilderManager(getClass().getEnclosingClass());
+        new BuilderManager(this);
     }
 
     @ExecBy(js = "var textContent = " + Arguments.FIRST + ".textContent; \n" +

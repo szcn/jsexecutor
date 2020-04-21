@@ -6,7 +6,7 @@
 
     <groupId>com.jsexecutor</groupId>
     <artifactId>jsexecutor-core</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <packaging>jar</packaging>
 
@@ -15,7 +15,7 @@
     <properties>
         <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
-        <java.version>11</java.version>
+        <java.version>8</java.version>
     </properties>
 
     <!--<repositories>
@@ -47,6 +47,17 @@
             <artifactId>assertj-core</artifactId>
             <version>3.15.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.4.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.141.59</version>
         </dependency>
         <!--<dependency>
             <groupId>com.jsexecutor</groupId>

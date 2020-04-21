@@ -8,7 +8,7 @@ public class Select
 {
     public Select()
     {
-        new BuilderManager(getClass().getEnclosingClass());
+        new BuilderManager(this);
     }
 
     @ExecBy(js = Arguments.FIRST + ".selectedIndex = " + Arguments.SECOND)

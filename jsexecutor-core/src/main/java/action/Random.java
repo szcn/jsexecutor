@@ -8,7 +8,7 @@ public class Random
 {
     public Random()
     {
-        new BuilderManager(getClass().getEnclosingClass());
+        new BuilderManager(this);
     }
 
     @ExecBy(js = "return generate_random_string(" + Arguments.FIRST + ")\n" +
