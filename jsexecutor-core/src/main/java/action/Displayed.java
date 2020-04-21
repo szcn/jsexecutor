@@ -8,7 +8,7 @@ public class Displayed
 {
     public Displayed()
     {
-        new BuilderManager(getClass().getEnclosingClass());
+        new BuilderManager(this);
     }
 
     @ExecBy(js = "function isVisible(elem) {\n" +

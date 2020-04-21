@@ -9,7 +9,7 @@ public class Wait
 
     public Wait()
     {
-        new BuilderManager(getClass().getEnclosingClass());
+        new BuilderManager(this);
     }
 
     /**

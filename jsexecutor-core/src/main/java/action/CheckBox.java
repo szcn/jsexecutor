@@ -9,7 +9,7 @@ public class CheckBox
 
     public CheckBox()
     {
-        new BuilderManager(getClass().getEnclosingClass());
+        new BuilderManager(this);
     }
 
     @ExecBy(js = "var checkboxes = document.querySelectorAll('[type=\"checkbox\"]');\n" +

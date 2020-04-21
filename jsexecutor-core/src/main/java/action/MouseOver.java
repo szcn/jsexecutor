@@ -9,7 +9,7 @@ public class MouseOver
 
     public MouseOver()
     {
-        new BuilderManager(getClass().getEnclosingClass());
+        new BuilderManager(this);
     }
 
     @ExecBy(jquery = "$(document.getElementById(" + Arguments.FIRST + ")).mouseover()")

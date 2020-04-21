@@ -10,7 +10,7 @@ public class Attribute
 
     public Attribute()
     {
-        new BuilderManager(getClass().getEnclosingClass());
+        new BuilderManager(this);
     }
 
     /**
@@ -23,6 +23,6 @@ public class Attribute
     @ExecBy(js = "return " + Arguments.FIRST + ".getAttribute(" + Arguments.SECOND + ");")
     public String getAttribute;
 
-    @ExecBy(js = Arguments.FIRST + ".style.backgroundColor = " + Arguments.SECOND + "")
+    @ExecBy(js = Arguments.FIRST + ".style.backgroundColor = " + Arguments.SECOND)
     public String setBackgroundStyle;
 }

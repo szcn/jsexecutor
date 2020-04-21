@@ -15,14 +15,14 @@ public class BuilderManager
     {
     }
 
-    public BuilderManager(Class<?> clz)
+    public BuilderManager(Object clz)
     {
         buildIt(clz);
     }
 
-    private void buildIt(Class clz)
+    private void buildIt(Object clz)
     {
-        Arrays.stream(clz.getDeclaredFields()).parallel().filter(jField
+        Arrays.stream(clz.getClass().getDeclaredFields()).parallel().filter(jField
                 -> jField.isAnnotationPresent(ExecBy.class)).forEach(jField
                 -> {
 
@@ -30,13 +30,12 @@ public class BuilderManager
             jField.setAccessible(true);
             try
             {
-
-
-
                 if (!execBy.js().isEmpty())
                     jField.set(clz, execBy.js());
                 if (!execBy.jquery().isEmpty())
                     jField.set(clz, execBy.jquery());
+                if (!execBy.jquery().isEmpty())
+                    jField.set(clz, execBy.sql());
             }
             catch (IllegalAccessException ae)
             {
