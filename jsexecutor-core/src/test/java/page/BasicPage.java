@@ -16,9 +16,24 @@ public class BasicPage
         new BuilderManager(this);
     }
 
-    @FindBy(css = ".login-text>a")
+    @FindBy(css = ".register-text >a")
     public WebElement signup;
 
-    @ExecBy(js = "a")
-    public String fillForm;
+    @FindBy(id = "name")
+    public WebElement name;
+
+    @FindBy(id = "surname")
+    public WebElement surname;
+
+    @FindBy(xpath = "//input[@id=\"email\"]")
+    public WebElement email;
+
+
+    /** Exec **/
+
+    @ExecBy(js = "document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();")
+    public String registerForm;
+
+    @ExecBy(js = "document.querySelector('#agreement > label').click();")
+    public String agreement;
 }

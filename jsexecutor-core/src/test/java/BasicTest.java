@@ -5,12 +5,16 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import page.BasicPage;
+import util.DataType;
 
 public class BasicTest
 {
-    WebDriver driver;
-    JavaScriptExecutor jsExecutor;
-    BasicPage basicPage;
+
+    private final static String url= "https://www.sahibinden.com/";
+
+    private WebDriver driver;
+    private JavaScriptExecutor jsExecutor;
+    private BasicPage basicPage;
 
     @BeforeEach
     public void before(){
@@ -26,9 +30,14 @@ public class BasicTest
     public void basicTest(){
 
         jsExecutor
-                .goToUrl("https://www.sahibinden.com/")
+                .goToUrl(url)
                 .click(basicPage.signup)
-                .executeScript(basicPage.fillForm);
+                .sleep(5000)
+                .setValue(basicPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .setValue(basicPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .executeScript(basicPage.registerForm)
+                .executeScript(basicPage.agreement);
+
 
     }
 
