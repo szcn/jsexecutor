@@ -11,6 +11,7 @@ public class BasicTest
 {
 
     private final static String url= "https://www.sahibinden.com/";
+    private final static String path= "/opt/chromedriver";
 
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
@@ -19,7 +20,7 @@ public class BasicTest
     @BeforeEach
     public void before(){
 
-        System.setProperty("webdriver.chrome.driver", "/opt/chromedriver");
+        System.setProperty("webdriver.chrome.driver", path);
         driver = new ChromeDriver();
         jsExecutor = new JavaScriptExecutor(driver);
         basicPage = new BasicPage(driver);
