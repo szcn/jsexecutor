@@ -4,7 +4,7 @@
 ### Page
 
 ```markdown
-public BasicPage(WebDriver driver)
+    public BasicPage(WebDriver driver)
     {
         PageFactory.initElements(driver, this);
         new BuilderManager(this);
