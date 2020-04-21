@@ -11,7 +11,7 @@ public class BasicTest
 {
 
     private final static String url= "https://www.sahibinden.com/";
-    private final static String path= "/opt/chromedriver";
+    private final static String path = "/opt/chromedriver";
 
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
