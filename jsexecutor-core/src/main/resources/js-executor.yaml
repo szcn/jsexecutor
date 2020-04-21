@@ -1,1 +1,2 @@
-logger: true
+logger:
+  active: true
