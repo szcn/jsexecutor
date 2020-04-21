@@ -1,2 +1,4 @@
 logger:
-  active: true
+  activate: true
+console-error:
+  activate: true
