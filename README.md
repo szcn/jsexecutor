@@ -1,37 +1,66 @@
-## Welcome to GitHub Pages
+## Javascript Executor Framework
 
-You can use the [editor on GitHub](https://github.com/szcn/jsexecutor/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Page
 
 ```markdown
-Syntax highlighted code block
+public BasicPage(WebDriver driver)
+    {
+        PageFactory.initElements(driver, this);
+        new BuilderManager(this);
+    }
 
-# Header 1
-## Header 2
-### Header 3
+    @FindBy(css = ".register-text >a")
+    public WebElement signup;
 
-- Bulleted
-- List
+    @FindBy(id = "name")
+    public WebElement name;
 
-1. Numbered
-2. List
+    @FindBy(id = "surname")
+    public WebElement surname;
 
-**Bold** and _Italic_ and `Code` text
+    @FindBy(xpath = "//input[@id=\"email\"]")
+    public WebElement email;
 
-[Link](url) and ![Image](src)
+
+    /** Exec **/
+
+    @ExecBy(js = "document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();")
+    public String registerForm;
+
+    @ExecBy(js = "document.querySelector('#agreement > label').click();")
+    public String agreement;
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### Test
 
-### Jekyll Themes
+```markdown
+    private WebDriver driver;
+    private JavaScriptExecutor jsExecutor;
+    private BasicPage basicPage;
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/szcn/jsexecutor/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+    @BeforeEach
+    public void before(){
 
-### Support or Contact
+        System.setProperty("webdriver.chrome.driver", path);
+        driver = new ChromeDriver();
+        jsExecutor = new JavaScriptExecutor(driver);
+        basicPage = new BasicPage(driver);
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+    }
+
+    @Test
+    public void basicTest(){
+
+        jsExecutor
+                .goToUrl(url)
+                .click(basicPage.signup)
+                .sleep(5000)
+                .setValue(basicPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .setValue(basicPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .executeScript(basicPage.registerForm)
+                .executeScript(basicPage.agreement);
+
+
+    }
+```
