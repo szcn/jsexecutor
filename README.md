@@ -1,4 +1,4 @@
-## Javascript Executor Framework
+## Javascript Executor Library
 
 
 ### Page
