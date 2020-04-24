@@ -1,2 +1,2 @@
 language: java
-before_install: cd szcn/jsexecutor/jsexecutor-core
+before_install: cd jsexecutor-core
