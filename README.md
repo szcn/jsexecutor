@@ -1,9 +1,21 @@
-## Javascript Executor Library
+[Javascript Executor Library](http://jsexecutor.com)
+==============
+master: 
 
 
-### Page
+Jsexecutor is an open-source tool for testing web and responsive functional. It is also a powerfull functional testing library.
 
-```markdown
+For more information visit http://jsexecutor.com
+
+
+
+How does it work?
+------------
+###...
+Here is a small example of basic syntax.
+
+```
+###Page
     public BasicPage(WebDriver driver)
     {
         PageFactory.initElements(driver, this);
@@ -30,11 +42,9 @@
 
     @ExecBy(js = "document.querySelector('#agreement > label').click();")
     public String agreement;
-```
 
-### Test
+###Test
 
-```markdown
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
     private BasicPage basicPage;
@@ -64,3 +74,19 @@
 
     }
 ```
+
+For more information please read [Js Executor Documentation](http://jsexecutor.com)
+
+Building 
+-----------
+
+
+Testing
+-----------
+There are two levels of testing. The first one is just the regular ```mvn clean test```. But as there is a lot of Javascript code - you need [Mocha](http://mochajs.org). The tests are located in folder ```src/test/js/```. To run the just go to that folder and execute ```testJs.sh```
+
+
+License
+------------
+
+Javascript Executor Library is licensed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
