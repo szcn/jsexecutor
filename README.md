@@ -74,7 +74,7 @@ Here is a small example of basic syntax.
     }
 ```
 
-For more information please read [Js Executor Documentation](http://jsexecutor.com)
+For more information please read [Javascript Executor Documentation](http://jsexecutor.com)
 
 Building 
 -----------
