@@ -1,3 +1,2 @@
 language: java
-before_script: cd jsexecutor-core
-install: mvn install -DskipTests
+before_install: cd jsexecutor-core
