@@ -1,7 +1,6 @@
 [Javascript Executor Library](http://jsexecutor.com)
 ==============
-master: 
-
+master: [![Build Status](https://travis-ci.com/szcn/jsexecutor.svg?branch=master)](https://travis-ci.com/szcn/jsexecutor)
 
 Jsexecutor is an open-source tool for testing web and responsive functional. It is also a powerfull functional testing library.
 
