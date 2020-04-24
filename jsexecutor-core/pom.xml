@@ -7,10 +7,30 @@
     <groupId>com.jsexecutor</groupId>
     <artifactId>jsexecutor-core</artifactId>
     <version>1.0.2</version>
-
     <packaging>jar</packaging>
-
     <name>Jsexecutor Core</name>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Sezai Can</name>
+            <email>sezaicn@outlook.com</email>
+            <organization>szcn</organization>
+            <organizationUrl>http://jsexecutor.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/szcn/jsexecutor.git</connection>
+        <developerConnection>scm:git:ssh://github.com:szcn/jsexecutor.git</developerConnection>
+        <url>https://github.com/szcn/jsexecutor/tree/master</url>
+    </scm>
 
     <properties>
         <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
