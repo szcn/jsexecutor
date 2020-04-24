@@ -83,7 +83,7 @@ Building
 
 Testing
 -----------
-There are two levels of testing. The first one is just the regular ```mvn clean test```. But as there is a lot of Javascript code - you need [Mocha](http://mochajs.org). The tests are located in folder ```src/test/js/```. To run the just go to that folder and execute ```testJs.sh```
+There are two levels of testing. The first one is just the regular ```mvn clean test```. But as there is a lot of Javascript code - you need [Mocha](http://mochajs.org). The tests are located in folder ```src/test/js/```.
 
 
 License
