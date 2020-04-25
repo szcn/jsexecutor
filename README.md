@@ -13,7 +13,7 @@ How does it work?
 ###...
 Here is a small example of basic syntax.
 
-```
+```java
 ###Page
     public BasicPage(WebDriver driver)
     {
