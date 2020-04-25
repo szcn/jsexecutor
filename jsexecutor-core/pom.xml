@@ -6,7 +6,7 @@
 
     <groupId>com.jsexecutor</groupId>
     <artifactId>jsexecutor-core</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <packaging>jar</packaging>
     <name>Jsexecutor Core</name>
     <url>http://jsexecutor.com/</url>
@@ -23,6 +23,9 @@
         <developer>
             <id>szcn</id>
             <name>Sezai Can</name>
+            <email>cn.sezai@gmail.com</email>
+            <organization>jse</organization>
+            <organizationUrl>http://jsexecutor.com</organizationUrl>
             <url>https://github.com/szcn</url>
             <roles>
                 <role>architect</role>
@@ -43,49 +46,33 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
+        <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots</sonatypeOssDistMgmtSnapshotsUrl>
+        <maven2.url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</maven2.url>
 
         <!-- VERSION NUMBERS -->
-        <!--<selenium.version>3.14.0</selenium.version>
-        <commons-io.version>2.6</commons-io.version>
-        <commons-cli.version>1.4</commons-cli.version>
-        <phantomjsdriver.version>1.2.1</phantomjsdriver.version>
-        <rhino.version>1.7.7.2</rhino.version>
-        <commons-lang3.version>3.8.1</commons-lang3.version>
-        <jackson.version>2.9.7</jackson.version>
-        <freemarker.version>2.3.19</freemarker.version>
-        &lt;!&ndash; testing libs &ndash;&gt;
-        <testng.version>6.7</testng.version>
-        <junit.version>4.12</junit.version>
-        <hamcrest.version>1.3</hamcrest.version>
-        <jacoco.version>0.7.4.201502262128</jacoco.version>
-        <mockito.version>1.9.5</mockito.version>
-        <node.version>v6.0.0</node.version>
-        <npm.version>3.10.7</npm.version>-->
+        <selenium.version>3.141.59</selenium.version>
+        <jacoco.version>0.8.5</jacoco.version>
+        <junit.version>5.4.2</junit.version>
+        <!--<mockito.version>1.9.5</mockito.version>-->
 
         <!-- maven plugins -->
-        <!--<maven-assembly-plugin.version>2.5.3</maven-assembly-plugin.version>
-        <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
-        <maven-release-plugin.version>2.5.2</maven-release-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
+        <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <maven-frontend-plugin.version>1.0</maven-frontend-plugin.version>
-        <maven-eclipse-plugin.version>2.7</maven-eclipse-plugin.version>
-        <maven-surefire-plugin.version>2.19</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>2.19</maven-failsafe-plugin.version>-->
+        <maven-surefire-plugin.version>3.0.0-M1</maven-surefire-plugin.version>
     </properties>
-
-    <!--<repositories>
-        <repository>
-            <id>256143062</id>
-            <url>https://github.com/szcn/jsexecutor.git</url>
-        </repository>
-    </repositories>-->
 
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-support</artifactId>
-            <version>3.141.59</version>
+            <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>${selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -107,19 +94,9 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.4.2</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-chrome-driver</artifactId>
-            <version>3.141.59</version>
-        </dependency>
-        <!--<dependency>
-            <groupId>com.jsexecutor</groupId>
-            <artifactId>jsexecutor-core</artifactId>
-            <version>1.0.0</version>
-        </dependency>-->
     </dependencies>
 
     <build>
@@ -128,7 +105,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>3.0.0-M1</version>
+                    <version>${maven-release-plugin.version}</version>
                     <configuration>
                         <goals>deploy</goals>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
@@ -137,22 +114,22 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
+                    <version>${maven-compiler-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.5</version>
+                    <version>${jacoco.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-eclipse-plugin</artifactId>
-                    <version>2.10</version>
+                    <version>${maven-eclipse-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.6</version>
+                    <version>${maven-gpg-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>sign-artifacts</id>
@@ -245,7 +222,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <version>${maven-surefire-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -267,7 +244,7 @@
         <repository>
             <id>sonatype-nexus-snapshots</id>
             <name>Sonatype Nexus Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -277,27 +254,14 @@
         </repository>
     </repositories>
 
-    <!--<distributionManagement>
-        <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
-        </snapshotRepository>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <name>Nexus Release Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>-->
-
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>${maven2.url}</url>
         </repository>
     </distributionManagement>
 
