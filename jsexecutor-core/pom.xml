@@ -23,6 +23,9 @@
         <developer>
             <id>szcn</id>
             <name>Sezai Can</name>
+            <email>cn.sezai@gmail.com</email>
+            <organization>jse</organization>
+            <organizationUrl>http://jsexecutor.com</organizationUrl>
             <url>https://github.com/szcn</url>
             <roles>
                 <role>architect</role>
