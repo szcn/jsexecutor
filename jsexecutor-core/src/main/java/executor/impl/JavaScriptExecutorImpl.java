@@ -7,6 +7,9 @@ import util.DataType;
 
 import java.util.List;
 
+/**
+ * JavaScript Executor implements
+ */
 public interface JavaScriptExecutorImpl
 {
     JavaScriptExecutor getDriver(WebDriver driver);
@@ -144,6 +147,7 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Random Generate
+     * @param dataType string, mix and number
      **/
 
     Object randomGenerate(DataType dataType, int length);
@@ -184,6 +188,7 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Mouse Over
+     * @param object
      **/
 
     JavaScriptExecutor mouseOver(Object object);
@@ -211,10 +216,16 @@ public interface JavaScriptExecutorImpl
      */
     JavaScriptExecutor ajaxComplete();
 
+    /**
+     * @param object
+     * @param millisecond
+     * @return JavaScriptExecutor
+     */
     JavaScriptExecutor checkExist(Object object, int millisecond);
 
     /**
      * encode - decode
+     * @param text
      */
 
     String decode(String text);
