@@ -10,7 +10,7 @@ import util.DataType;
 public class BasicTest
 {
 
-    private final static String url= "https://www.sahibinden.com/";
+    private final static String url = "https://www.sahibinden.com/";
     private final static String path = "/opt/chromedriver";
 
     private WebDriver driver;
@@ -18,7 +18,8 @@ public class BasicTest
     private BasicPage basicPage;
 
     @BeforeEach
-    public void before(){
+    public void before()
+    {
 
         System.setProperty("webdriver.chrome.driver", path);
         driver = new ChromeDriver();
@@ -28,14 +29,15 @@ public class BasicTest
     }
 
     @Test
-    public void basicTest(){
+    public void basicTest()
+    {
 
         jsExecutor
                 .goToUrl(url)
                 .click(basicPage.signup)
                 .sleep(5000)
-                .setValue(basicPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .setValue(basicPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .setValue(basicPage.name, (String) jsExecutor.randomGenerate(DataType.STRING, 5))
+                .setValue(basicPage.surname, (String) jsExecutor.randomGenerate(DataType.STRING, 5))
                 .executeScript(basicPage.registerForm)
                 .executeScript(basicPage.agreement);
 
@@ -43,7 +45,8 @@ public class BasicTest
     }
 
     @AfterEach
-    public void after(){
+    public void after()
+    {
 
         driver.close();
 
