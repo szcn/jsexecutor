@@ -85,9 +85,12 @@ Building
 you'll need:
 
 Java 1.8+
-Maven 3.6 or later
 
-```mvn clean install -Dgpg.skip -DskipTests```
+Maven 3.3 or later
+
+```
+mvn clean install -Dgpg.skip -DskipTests
+```
 
 
 
