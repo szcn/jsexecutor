@@ -91,7 +91,7 @@ Java 1.8+
 
 To add a dependency on JavascriptExecutor using Maven, use the following:
 
-```
+```xml
 <dependency>
   <groupId>com.jsexecutor</groupId>
   <artifactId>jsexecutor-core</artifactId>
@@ -105,13 +105,13 @@ mvn clean install -Dgpg.skip -DskipTests
 
 To add a dependency using Gradle Groovy:
 
-```
+```gradle
 implementation 'com.jsexecutor:jsexecutor-core:1.0.5'
 ```
 
 To add a dependency using Gradle Kotlin:
 
-```
+```gradle
 implementation("com.jsexecutor:jsexecutor-core:1.0.5")
 ```
 
