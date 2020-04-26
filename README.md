@@ -86,7 +86,7 @@ you'll need:
 
 Java 1.8+
 
-Maven 3.3 or later
+[Maven 3.3](http://maven.apache.org/download.cgi) or later
 
 ```
 mvn clean install -Dgpg.skip -DskipTests
