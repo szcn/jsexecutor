@@ -1,8 +1,11 @@
 [Javascript Executor Library](http://jsexecutor.com)
 ==============
+[![Apache License, Version 2.0, January 2004](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:com.jsexecutor%20AND%20a:jsexecutor-core)
+
 master: [![Build Status](https://travis-ci.com/szcn/jsexecutor.svg?branch=master)](https://travis-ci.com/szcn/jsexecutor)
 
-Jsexecutor is an open-source tool for testing web and responsive functional. It is also a powerfull functional testing library.
+JavascriptExecutor is an open-source tool for testing web and responsive functional. It is also a powerfull functional testing library.
 
 For more information visit http://jsexecutor.com
 
