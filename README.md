@@ -100,7 +100,7 @@ To add a dependency on JavascriptExecutor using Maven, use the following:
 ```
 
 ```
-mvn clean install -Dgpg.skip -DskipTests
+mvn clean install
 ```
 
 To add a dependency using Gradle Groovy:
