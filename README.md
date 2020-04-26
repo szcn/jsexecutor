@@ -88,6 +88,29 @@ Java 1.8+
 
 [Maven 3.3](http://maven.apache.org/download.cgi) or later
 
+To add a dependency on JavascriptExecutor using Maven, use the following:
+
+```
+<dependency>
+  <groupId>com.jsexecutor</groupId>
+  <artifactId>jsexecutor-core</artifactId>
+  <version>1.0.5</version>
+</dependency>
+```
+
+To add a dependency using Gradle Groovy:
+
+```
+implementation 'com.jsexecutor:jsexecutor-core:1.0.5'
+```
+
+To add a dependency using Gradle Kotlin:
+
+```
+implementation("com.jsexecutor:jsexecutor-core:1.0.5")
+```
+
+
 ```
 mvn clean install -Dgpg.skip -DskipTests
 ```
