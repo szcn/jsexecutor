@@ -1,4 +1,4 @@
-[Javascript Executor Library](http://jsexecutor.com)
+[Javascript Executor Framework](http://jsexecutor.com)
 ==============
 [![Apache License, Version 2.0, January 2004](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Maven Central](https://img.shields.io/maven-central/v/com.jsexecutor/jsexecutor-core.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.jsexecutor/jsexecutor-core/1.0.5/jar)
@@ -128,4 +128,4 @@ There are two levels of testing. The first one is just the regular ```mvn clean 
 License
 ------------
 
-Javascript Executor Library is licensed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+Javascript Executor Framework is licensed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
