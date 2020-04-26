@@ -31,9 +31,9 @@ public class BasicPage
 
     /** Exec **/
 
-    @ExecBy(js = "document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();")
+    @ExecBy(js = "document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click()")
     public String registerForm;
 
-    @ExecBy(js = "document.querySelector('#agreement > label').click();")
+    @ExecBy(jquery = "$('#agreement > label').click()")
     public String agreement;
 }
