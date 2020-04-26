@@ -2,6 +2,7 @@
 ==============
 [![Apache License, Version 2.0, January 2004](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Maven Central](https://img.shields.io/maven-central/v/com.jsexecutor/jsexecutor-core.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.jsexecutor/jsexecutor-core/1.0.5/jar)
+[![Latest release](https://img.shields.io/github/release/szcn/jsexecutor.svg)](https://github.com/szcn/jsexecutor/releases/latest)
 
 master: [![Build Status](https://travis-ci.com/szcn/jsexecutor.svg?branch=master)](https://travis-ci.com/szcn/jsexecutor)
 
