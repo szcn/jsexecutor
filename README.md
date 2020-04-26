@@ -98,6 +98,10 @@ To add a dependency on JavascriptExecutor using Maven, use the following:
 </dependency>
 ```
 
+```
+mvn clean install -Dgpg.skip -DskipTests
+```
+
 To add a dependency using Gradle Groovy:
 
 ```
@@ -108,11 +112,6 @@ To add a dependency using Gradle Kotlin:
 
 ```
 implementation("com.jsexecutor:jsexecutor-core:1.0.5")
-```
-
-
-```
-mvn clean install -Dgpg.skip -DskipTests
 ```
 
 All releases are available in
