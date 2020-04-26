@@ -1,4 +1,3 @@
 language: java
-before_script:
-  - "sh cd jsexecutor-core"
+before_script: "sh cd /home/travis/build/szcn/jsexecutor/jsexecutor-core"
 install: mvn install -DskipTests -Dgpg.skip
