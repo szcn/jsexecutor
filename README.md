@@ -33,7 +33,7 @@ Here is a small example of basic syntax.
     @FindBy(id = "surname")
     public WebElement surname;
 
-    @FindBy(xpath = "//input[@id=\"email\"]")
+    @FindBy(xpath = "//input[@id='email']")
     public WebElement email;
 
 
