@@ -19,6 +19,7 @@ Here is a small example of basic syntax.
 
 ```java
 ###Page
+
     public BasicPage(WebDriver driver)
     {
         PageFactory.initElements(driver, this);
