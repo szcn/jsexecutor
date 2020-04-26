@@ -87,7 +87,9 @@ public interface JavaScriptExecutorImpl
     JavaScriptExecutor randomElementClick(List<Object> objects);
 
 
-    /** ElementIsDisplayed **/
+    /** ElementIsDisplayed
+     * @param script
+     **/
 
     //boolean isDisplayed(String script);
 
