@@ -6,7 +6,7 @@
 
 master: [![Build Status](https://travis-ci.com/szcn/jsexecutor.svg?branch=master)](https://travis-ci.com/szcn/jsexecutor)
 
-JavascriptExecutor is an open-source tool for testing web and responsive functional. It is also a powerfull functional testing library.
+JavascriptExecutor is an open-source tool for testing web and responsive functional. It is also a powerfull functional testing framework.
 
 For more information visit http://jsexecutor.com , http://javascriptexecutor.com
 
