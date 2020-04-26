@@ -123,7 +123,7 @@ All releases are available in
 
 Testing
 -----------
-There are two levels of testing. The first one is just the regular ```mvn clean test```. But as there is a lot of Javascript code - you need [Mocha](http://mochajs.org). The tests are located in folder ```src/test/js/```.
+There are two levels of testing. The first one is just the regular ```mvn clean test```.
 
 
 License
