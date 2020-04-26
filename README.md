@@ -46,12 +46,37 @@ Here is a small example of basic syntax.
 
     @ExecBy(jquery = "$('#agreement > label').click()")
     public String agreement;
+    
+###DAO
+
+public class UserDAO
+{
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public UserDAO()
+    {
+        new BuilderManager(this);
+    }
+
+    @ExecBy(sql = "SELECT NAME FROM USER WHERE ID = ?")
+    private String userNameById;
+
+
+    public String findUserNameById(Long id) {
+
+        return jdbcTemplate.queryForObject(userNameById, new Object[]{id}, String.class);
+
+    }
+
+}
 
 ###Test
 
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
     private BasicPage basicPage;
+    private UserDAO userDAO;
 
     @BeforeEach
     public void before(){
@@ -60,6 +85,7 @@ Here is a small example of basic syntax.
         driver = new ChromeDriver();
         jsExecutor = new JavaScriptExecutor(driver);
         basicPage = new BasicPage(driver);
+        userDAO = new UserDAO();
 
     }
 
@@ -73,8 +99,8 @@ Here is a small example of basic syntax.
                 .setValue(basicPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
                 .setValue(basicPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
                 .executeScript(basicPage.registerForm)
-                .executeScript(basicPage.agreement);
-
+                .executeScript(basicPage.agreement)
+                .assertEqual(userName,userDAO.findUserNameById(userId));
 
     }
 ```
