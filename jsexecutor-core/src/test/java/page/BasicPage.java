@@ -25,7 +25,7 @@ public class BasicPage
     @FindBy(id = "surname")
     public WebElement surname;
 
-    @FindBy(xpath = "//input[@id=\"email\"]")
+    @FindBy(xpath = "//input[@id='email']")
     public WebElement email;
 
 
@@ -36,4 +36,7 @@ public class BasicPage
 
     @ExecBy(jquery = "$('#agreement > label').click()")
     public String agreement;
+
+    @ExecBy(jsFile = "/Users/sezai.can/Documents/sezai/repo/jsexecutor/jsexecutor-core/src/test/java/js/userForm.js")
+    public String userFormPath;
 }

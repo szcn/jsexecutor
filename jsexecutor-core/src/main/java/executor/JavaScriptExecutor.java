@@ -16,6 +16,7 @@ import executor.impl.JavaScriptExecutorImpl;
 import lombok.extern.slf4j.Slf4j;
 import manager.BuilderManager;
 import manager.CastManager;
+import manager.ScannerManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +24,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 import util.DataType;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,6 +74,27 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
 
         return this;
 
+    }
+
+    @Override
+    public JavaScriptExecutor executeScriptWithinFile(String var, String filePath) throws FileNotFoundException
+    {
+
+        ScannerManager scannerManager = new ScannerManager(filePath);
+
+        jExecutor.executeScript(scannerManager.scannerFunc(var));
+
+        return this;
+    }
+
+    @Override
+    public <T> T executeScriptWithinFile(Class<T> clazz, String var, String filePath) throws FileNotFoundException
+    {
+
+        ScannerManager scannerManager = new ScannerManager(filePath);
+
+
+        return clazz.cast(jExecutor.executeScript(scannerManager.scannerFunc(var)));
     }
 
 
@@ -762,4 +785,5 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     {
         return executeScript(String.class, Constants.Decode.DECODE, text);
     }
+
 }

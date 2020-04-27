@@ -1,22 +1,15 @@
 import executor.JavaScriptExecutor;
-import manager.ScannerManager;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import page.BasicPage;
-import util.DataType;
 
-import javax.script.ScriptException;
+import java.io.FileNotFoundException;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-public class BasicTest
+public class JsFileTest
 {
-
     private final static String url= "https://www.sahibinden.com/";
     private final static String path = "/opt/chromedriver";
 
@@ -35,17 +28,14 @@ public class BasicTest
     }
 
     @Test
-    public void basicTest() throws IOException, ScriptException, NoSuchMethodException, URISyntaxException
+    public void jsFileTest() throws FileNotFoundException
     {
-
         jsExecutor
                 .goToUrl(url)
                 .click(basicPage.signup)
                 .sleep(5000)
-                .setValue(basicPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .setValue(basicPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .executeScript(basicPage.registerForm)
-                .executeScript(basicPage.agreement);
+                //TODO : bunu jsfile ile var olarak gönder anatasyonun içinde sonra individualForm:path olarak set edilen yerde managerde birleştir sonra scannerda kes
+                .executeScriptWithinFile("individualForm",basicPage.userFormPath);
 
 
     }

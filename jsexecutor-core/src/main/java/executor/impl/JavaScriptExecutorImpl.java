@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import util.DataType;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -17,6 +18,10 @@ public interface JavaScriptExecutorImpl
     JavaScriptExecutor executeScript(String script, Object... args);
 
     <T> T executeScript(Class<T> clazz, String script, Object... args);
+
+    JavaScriptExecutor executeScriptWithinFile(String var, String filePath) throws FileNotFoundException;
+
+    <T> T executeScriptWithinFile(Class<T> clazz, String var, String filePath) throws FileNotFoundException;
 
     /**
      * LocalStorage
