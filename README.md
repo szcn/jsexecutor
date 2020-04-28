@@ -20,6 +20,9 @@ Here is a small example of basic syntax.
 ```java
 ###Page
 
+public class BasicPage
+{
+
     public BasicPage(WebDriver driver)
     {
         PageFactory.initElements(driver, this);
@@ -46,6 +49,7 @@ Here is a small example of basic syntax.
 
     @ExecBy(jquery = "$('#agreement > label').click()")
     public String agreement;
+}
     
 ###DAO
 
@@ -73,6 +77,8 @@ public class UserDAO
 
 ###Test
 
+public class BasicTest
+{
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
     private BasicPage basicPage;
@@ -93,9 +99,9 @@ public class UserDAO
     public void basicTest(){
 
         jsExecutor
-                .goToUrl(url)
+                .goToUrl(homePage)
                 .click(basicPage.signup)
-                .sleep(5000)
+                .sleep(5)
                 .setValue(basicPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
                 .setValue(basicPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
                 .executeScript(basicPage.registerForm)
@@ -103,6 +109,80 @@ public class UserDAO
                 .assertEqual(userName,userDAO.findUserNameById(userId));
 
     }
+}
+```
+
+```javascript
+
+### JS File
+
+var individualForm = function () {
+
+    document.getElementById('name').value = "testname";
+    document.getElementById('surname').value = "testsurname";
+    document.getElementById('email').value = "test@jsexecutor.com";
+    document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();
+    document.querySelector('#agreement > label').click();
+
+};
+
+var corporateForm = function () {
+
+    document.getElementById('name').value = "testname";
+    document.getElementById('surname').value = "testsurname";
+    document.getElementById('email').value = "test@jsexecutor.com";
+    document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();
+    document.querySelector('#agreement > label').click();
+
+};
+
+```
+
+```java
+
+### File Class
+
+public class FilePath
+{
+
+    public FilePath()
+    {
+        new BuilderManager(this);
+    }
+    
+    @ExecBy(jsPath = "js/userForm.js")
+    public String userFormPath;
+}
+
+
+### Test
+
+public class JsFileTest
+{
+    private WebDriver driver;
+    private JavaScriptExecutor jsExecutor;
+    
+    @BeforeEach
+    public void before(){
+
+        System.setProperty("webdriver.chrome.driver", path);
+        driver = new ChromeDriver();
+        jsExecutor = new JavaScriptExecutor(driver);
+        filePath = new FilePath();
+
+    }
+
+    @Test
+    public void jsFileTest(){
+
+        jsExecutor
+                .goToUrl(registerPage)
+                .sleep(5)
+                .executeScriptWithinFile("individualForm",basicPage.userFormPath);
+
+    }
+}
+
 ```
 
 For more information please read [Javascript Executor Documentation](http://jsexecutor.com)
