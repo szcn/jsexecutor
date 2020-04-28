@@ -7,10 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class BasicPage
+public class UserRegisterPage
 {
 
-    public BasicPage(WebDriver driver)
+    public UserRegisterPage(WebDriver driver)
     {
         PageFactory.initElements(driver, this);
         new BuilderManager(this);
@@ -25,15 +25,18 @@ public class BasicPage
     @FindBy(id = "surname")
     public WebElement surname;
 
-    @FindBy(xpath = "//input[@id=\"email\"]")
+    @FindBy(xpath = "//input[@id='email']")
     public WebElement email;
 
 
     /** Exec **/
 
-    @ExecBy(js = "document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();")
+    @ExecBy(js = "document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click()")
     public String registerForm;
 
-    @ExecBy(js = "document.querySelector('#agreement > label').click();")
+    @ExecBy(jquery = "$('#agreement > label').click()")
     public String agreement;
+
+    @ExecBy(jsPath = "js/userForm.js")
+    public String userFormPath;
 }

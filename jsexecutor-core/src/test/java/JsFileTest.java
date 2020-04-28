@@ -4,18 +4,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import page.BasicPage;
-import util.DataType;
+import page.UserRegisterPage;
 
-public class BasicTest
+import java.io.FileNotFoundException;
+
+public class JsFileTest
 {
-
-    private final static String url= "https://www.sahibinden.com/";
+    private final static String url= "https://secure.sahibinden.com/kayit";
     private final static String path = "/opt/chromedriver";
 
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
-    private BasicPage basicPage;
+    private UserRegisterPage userRegisterPage;
 
     @BeforeEach
     public void before(){
@@ -23,24 +23,19 @@ public class BasicTest
         System.setProperty("webdriver.chrome.driver", path);
         driver = new ChromeDriver();
         jsExecutor = new JavaScriptExecutor(driver);
-        basicPage = new BasicPage(driver);
+        userRegisterPage = new UserRegisterPage(driver);
 
     }
 
     @Test
-    public void basicTest(){
-
+    public void jsFileTest() throws FileNotFoundException
+    {
         jsExecutor
                 .goToUrl(url)
-                .click(basicPage.signup)
                 .sleep(5000)
-                .setValue(basicPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .setValue(basicPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .executeScript(basicPage.registerForm)
-                .executeScript(basicPage.agreement);
-
-
+                .executeScriptWithinFile("individualForm", userRegisterPage.userFormPath);
     }
+
 
     @AfterEach
     public void after(){
@@ -48,5 +43,4 @@ public class BasicTest
         driver.close();
 
     }
-
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import util.DataType;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -18,8 +19,13 @@ public interface JavaScriptExecutorImpl
 
     <T> T executeScript(Class<T> clazz, String script, Object... args);
 
+    JavaScriptExecutor executeScriptWithinFile(String var, String filePath) throws FileNotFoundException;
+
+    <T> T executeScriptWithinFile(Class<T> clazz, String var, String filePath) throws FileNotFoundException;
+
     /**
      * LocalStorage
+     * @param item item
      **/
 
     void removeItemFromLocalStorage(String item);
@@ -38,6 +44,7 @@ public interface JavaScriptExecutorImpl
 
     /**
      * SessionStorage
+     * @param item item
      **/
 
     void removeItemFromSessionStorage(String item);
@@ -56,6 +63,8 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Scroll
+     * @param element WebElement
+     * @return JavaScriptExecutor
      **/
 
     JavaScriptExecutor scrollWithElement(WebElement element);
@@ -74,6 +83,8 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Click
+     * @param object WebElement
+     * @return JavaScriptExecutor
      **/
 
     JavaScriptExecutor click(Object object);
@@ -88,18 +99,23 @@ public interface JavaScriptExecutorImpl
 
 
     /** ElementIsDisplayed
-     * @param script
+     * @param script script
      **/
 
     //boolean isDisplayed(String script);
 
     /**
      * Url
+     * @param url url
+     * @return JavaScriptExecutor
      **/
     JavaScriptExecutor goToUrl(String url);
 
     /**
      * Set Value
+     * @param object WebElement
+     * @param value value
+     * @return JavaScriptExecutor
      **/
     JavaScriptExecutor setValue(Object object, String value);
 
@@ -115,12 +131,16 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Get Value
+     * @param object WebElement
+     * @return String
      **/
 
     String getText(Object object);
 
     /**
      * checkbox
+     * @param object WebElement
+     * @return boolean
      **/
 
     boolean isCheckBoxChecked(Object object);
@@ -131,18 +151,25 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Assert
+     * @param object WebElement
+     * @return boolean
      **/
 
     boolean isDisplayed(Object object);
 
     /**
      * Is Attribute Present
+     * @param object WebElement
+     * @param attributeName attribute
+     * @return boolean
      **/
 
     boolean isAttributePresent(Object object, Object attributeName);
 
     /**
      * Open Tab
+     * @param url url
+     * @return JavaScriptExecutor
      **/
 
     JavaScriptExecutor newTab(String url);
@@ -150,12 +177,17 @@ public interface JavaScriptExecutorImpl
     /**
      * Random Generate
      * @param dataType string, mix and number
+     * @param length generate l
+     * @return Object
      **/
 
     Object randomGenerate(DataType dataType, int length);
 
     /**
      * Select
+     * @param object WebElement
+     * @param valueName value
+     * @return JavaScriptExecutor
      **/
 
     JavaScriptExecutor selectByValue(Object object, Object valueName);
@@ -168,6 +200,8 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Selected Option
+     * @param object WebElement
+     * @return String
      **/
 
     String getSelectedOptionVisibleText(Object object);
@@ -178,56 +212,67 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Get Attribute
+     * @param object WebElement
+     * @param attributeName attr
+     * @return Object
      **/
 
     Object getAttribute(Object object, Object attributeName);
 
     /**
      * Zoom
+     * @param percentValue percentValue
+     * @return JavaScriptExecutor
      **/
 
     JavaScriptExecutor pageZoom(int percentValue);
 
     /**
      * Mouse Over
-     * @param object
+     * @param object WebElement
+     * @return JavaScriptExecutor
      **/
 
     JavaScriptExecutor mouseOver(Object object);
 
     /**
      * Page Refresh
+     * @return JavaScriptExecutor
      **/
 
     JavaScriptExecutor pageRefresh();
 
     /**
      * Get Location Path Name "www.siteName.com/LOCATION_PATH_NAME"
+     * @return String
      **/
 
     String getLocationPathName();
 
     /**
      * Get Current URL
+     * @return String
      **/
 
     String getCurrentUrl();
 
     /**
      * wait
+     * @return JavaScriptExecutor
      */
     JavaScriptExecutor ajaxComplete();
 
     /**
-     * @param object
-     * @param millisecond
+     * @param object WebElement
+     * @param millisecond ms
      * @return JavaScriptExecutor
      */
     JavaScriptExecutor checkExist(Object object, int millisecond);
 
     /**
      * encode - decode
-     * @param text
+     * @param text t
+     * @return JavaScriptExecutor
      */
 
     String decode(String text);

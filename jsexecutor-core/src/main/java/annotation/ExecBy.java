@@ -9,11 +9,15 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 public @interface ExecBy
 {
-
     String js() default "";
 
     String jquery() default "";
 
     String sql() default "";
+
+    String jsPath() default "";
+
+    String func() default "";
+
 
 }

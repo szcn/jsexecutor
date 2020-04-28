@@ -6,7 +6,7 @@
 
 master: [![Build Status](https://travis-ci.com/szcn/jsexecutor.svg?branch=master)](https://travis-ci.com/szcn/jsexecutor)
 
-JavascriptExecutor is an open-source tool for testing web and responsive functional. It is also a powerfull functional testing framework.
+JavascriptExecutor is an open-source tool for testing web and responsive functional. It is also a functional testing framework.
 
 For more information visit http://jsexecutor.com , http://javascriptexecutor.com
 
@@ -17,10 +17,13 @@ How does it work?
 ###...
 Here is a small example of basic syntax.
 
+### Page
 ```java
-###Page
 
-    public BasicPage(WebDriver driver)
+public class RegisterPage
+{
+
+    public RegisterPage(WebDriver driver)
     {
         PageFactory.initElements(driver, this);
         new BuilderManager(this);
@@ -46,12 +49,44 @@ Here is a small example of basic syntax.
 
     @ExecBy(jquery = "$('#agreement > label').click()")
     public String agreement;
+}
+```
+    
+### Dao
 
-###Test
+```java
+public class UserDAO
+{
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
+    public UserDAO()
+    {
+        new BuilderManager(this);
+    }
+
+    @ExecBy(sql = "SELECT NAME FROM USER WHERE ID = ?")
+    private String userNameById;
+
+
+    public String findUserNameById(Long id) {
+
+        return jdbcTemplate.queryForObject(userNameById, new Object[]{id}, String.class);
+
+    }
+
+}
+```
+
+### Test
+
+```java
+public class UserTest
+{
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
-    private BasicPage basicPage;
+    private RegisterPage registerPage;
+    private UserDAO userDAO;
 
     @BeforeEach
     public void before(){
@@ -59,24 +94,104 @@ Here is a small example of basic syntax.
         System.setProperty("webdriver.chrome.driver", path);
         driver = new ChromeDriver();
         jsExecutor = new JavaScriptExecutor(driver);
-        basicPage = new BasicPage(driver);
+        registerPage = new RegisterPage(driver);
+        userDAO = new UserDAO();
 
     }
 
     @Test
-    public void basicTest(){
+    public void userRegisterTest(){
 
         jsExecutor
-                .goToUrl(url)
-                .click(basicPage.signup)
-                .sleep(5000)
-                .setValue(basicPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .setValue(basicPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .executeScript(basicPage.registerForm)
-                .executeScript(basicPage.agreement);
-
+                .goToUrl(homePage)
+                .click(registerPage.signup)
+                .sleep(5)
+                .setValue(registerPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .setValue(registerPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .executeScript(registerPage.registerForm)
+                .executeScript(registerPage.agreement)
+                .click(registerPage.login)
+                .assertEqual(userName,userDAO.findUserNameById(userId));
 
     }
+}
+```
+
+### JS File : userForm.js
+
+```javascript
+
+var individualForm = function () {
+
+    document.getElementById('name').value = "testname";
+    document.getElementById('surname').value = "testsurname";
+    document.getElementById('email').value = "test@jsexecutor.com";
+    document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();
+    document.querySelector('#agreement > label').click();
+
+};
+
+var corporateForm = function () {
+
+    document.getElementById('name').value = "testname";
+    document.getElementById('surname').value = "testsurname";
+    document.getElementById('email').value = "test@jsexecutor.com";
+    document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();
+    document.querySelector('#agreement > label').click();
+
+};
+
+```
+### File Path
+
+```java
+
+public class FilePath
+{
+
+    public FilePath()
+    {
+        new BuilderManager(this);
+    }
+    
+    @ExecBy(jsPath = "js/userForm.js")
+    public String userFormPath;
+}
+```
+
+### Test
+
+```java
+public class UserTest
+{
+    private WebDriver driver;
+    private JavaScriptExecutor jsExecutor;
+    private FilePath filePath;
+    private RegisterPage registerPage;
+    
+    @BeforeEach
+    public void before(){
+
+        System.setProperty("webdriver.chrome.driver", path);
+        driver = new ChromeDriver();
+        jsExecutor = new JavaScriptExecutor(driver);
+        registerPage = new RegisterPage(driver);
+        filePath = new FilePath();
+
+    }
+
+    @Test
+    public void userRegisterTest(){
+
+        jsExecutor
+                .goToUrl(registerPageUrl)
+                .sleep(5)
+                .executeScriptWithinFile("individualForm",filePath.userFormPath);
+                .click(registerPage.login)
+
+    }
+}
+
 ```
 
 For more information please read [Javascript Executor Documentation](http://jsexecutor.com)
@@ -123,7 +238,7 @@ All releases are available in
 
 Testing
 -----------
-There are two levels of testing. The first one is just the regular ```mvn clean test```.
+```mvn clean test```.
 
 
 License

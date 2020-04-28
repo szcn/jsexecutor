@@ -16,6 +16,7 @@ import executor.impl.JavaScriptExecutorImpl;
 import lombok.extern.slf4j.Slf4j;
 import manager.BuilderManager;
 import manager.CastManager;
+import manager.ScriptEngineManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +24,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 import util.DataType;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,6 +74,27 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
 
         return this;
 
+    }
+
+    @Override
+    public JavaScriptExecutor executeScriptWithinFile(String var, String filePath) throws FileNotFoundException
+    {
+
+        ScriptEngineManager scriptEngineManager = new ScriptEngineManager(filePath);
+
+        jExecutor.executeScript(scriptEngineManager.eval(var));
+
+        return this;
+    }
+
+    @Override
+    public <T> T executeScriptWithinFile(Class<T> clazz, String var, String filePath) throws FileNotFoundException
+    {
+
+        ScriptEngineManager scriptEngineManager = new ScriptEngineManager(filePath);
+
+
+        return clazz.cast(jExecutor.executeScript(scriptEngineManager.eval(var)));
     }
 
 
@@ -235,7 +258,7 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
 
         if (object instanceof By)
         {
-            ///TODO : remotedriver veya webdriver için kontrol yapılı hangisi null deilse o gönderilmeli. şuanda webdriver gidiyor.sabit.
+            ///TODO : remotedriver
             CastManager castManager = new CastManager(driver);
 
             object = castManager.castWebElement(object);
@@ -395,11 +418,11 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
         return executeScript(Constants.SetValue.SEND_KEYS, object, value);
     }
 
-    //TODO : thread sleep gibi davranmıyor. ms olarak doğru zamanı bekletmiyor olabilir.
+    //TODO : fixme
     @Override
     public JavaScriptExecutor sleep(int milliseconds)
     {
-        return executeScript(Constants.DelayedGreeting.SLEEP, milliseconds);
+        return executeScript(Constants.DelayedGreeting.SLEEP, (milliseconds*1000));
     }
 
     /**
@@ -762,4 +785,5 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     {
         return executeScript(String.class, Constants.Decode.DECODE, text);
     }
+
 }

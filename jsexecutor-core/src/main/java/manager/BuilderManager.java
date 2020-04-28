@@ -34,8 +34,12 @@ public class BuilderManager
                     jField.set(clz, execBy.js());
                 if (!execBy.jquery().isEmpty())
                     jField.set(clz, execBy.jquery());
-                if (!execBy.jquery().isEmpty())
+                if (!execBy.sql().isEmpty())
                     jField.set(clz, execBy.sql());
+                if (!execBy.jsPath().isEmpty())
+                    jField.set(clz, execBy.jsPath());
+                if (!execBy.func().isEmpty())
+                    jField.set(clz, execBy.func());
             }
             catch (IllegalAccessException ae)
             {
