@@ -1,6 +1,4 @@
 import executor.JavaScriptExecutor;
-import manager.ScannerManager;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

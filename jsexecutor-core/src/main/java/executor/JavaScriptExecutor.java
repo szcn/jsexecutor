@@ -16,15 +16,13 @@ import executor.impl.JavaScriptExecutorImpl;
 import lombok.extern.slf4j.Slf4j;
 import manager.BuilderManager;
 import manager.CastManager;
-import manager.ScannerManager;
+import manager.ScriptEngineManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 import util.DataType;
-
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -77,24 +75,24 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     }
 
     @Override
-    public JavaScriptExecutor executeScriptWithinFile(String var, String filePath) throws FileNotFoundException
+    public JavaScriptExecutor executeScriptWithinFile(String var, String filePath)
     {
 
-        ScannerManager scannerManager = new ScannerManager(filePath);
+        ScriptEngineManager scriptEngineManager = new ScriptEngineManager(filePath);
 
-        jExecutor.executeScript(scannerManager.scannerFunc(var));
+        jExecutor.executeScript(scriptEngineManager.eval(var));
 
         return this;
     }
 
     @Override
-    public <T> T executeScriptWithinFile(Class<T> clazz, String var, String filePath) throws FileNotFoundException
+    public <T> T executeScriptWithinFile(Class<T> clazz, String var, String filePath)
     {
 
-        ScannerManager scannerManager = new ScannerManager(filePath);
+        ScriptEngineManager scriptEngineManager = new ScriptEngineManager(filePath);
 
 
-        return clazz.cast(jExecutor.executeScript(scannerManager.scannerFunc(var)));
+        return clazz.cast(jExecutor.executeScript(scriptEngineManager.eval(var)));
     }
 
 

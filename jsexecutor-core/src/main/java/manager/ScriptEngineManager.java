@@ -2,27 +2,40 @@ package manager;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 @Slf4j
-public class ScannerManager
+public class ScriptEngineManager
 {
     private StringBuilder stringBuilder;
     private Scanner scanner;
-    private File file;
+    private String filePath;
 
-    public ScannerManager(@NotNull String filePath) throws FileNotFoundException
+    public ScriptEngineManager(@NotNull String filePath)
     {
-        file = new File(filePath);
+        this.filePath = filePath;
+    }
+
+    @PostConstruct
+    public void init() throws FileNotFoundException
+    {
         stringBuilder = new StringBuilder();
+        File file = new File(filePath);
         scanner = new Scanner(file);
 
     }
 
-    public String scannerFunc(String var)
+    public String eval(String var){
+
+        return scannerFunc(var);
+    }
+
+
+    private String scannerFunc(String var)
     {
         while (scanner.hasNextLine())
         {
