@@ -20,10 +20,10 @@ Here is a small example of basic syntax.
 ### Page
 ```java
 
-public class BasicPage
+public class RegisterPage
 {
 
-    public BasicPage(WebDriver driver)
+    public RegisterPage(WebDriver driver)
     {
         PageFactory.initElements(driver, this);
         new BuilderManager(this);
@@ -85,7 +85,7 @@ public class BasicTest
 {
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
-    private BasicPage basicPage;
+    private RegisterPage registerPage;
     private UserDAO userDAO;
 
     @BeforeEach
@@ -94,7 +94,7 @@ public class BasicTest
         System.setProperty("webdriver.chrome.driver", path);
         driver = new ChromeDriver();
         jsExecutor = new JavaScriptExecutor(driver);
-        basicPage = new BasicPage(driver);
+        registerPage = new RegisterPage(driver);
         userDAO = new UserDAO();
 
     }
@@ -104,12 +104,13 @@ public class BasicTest
 
         jsExecutor
                 .goToUrl(homePage)
-                .click(basicPage.signup)
+                .click(registerPage.signup)
                 .sleep(5)
-                .setValue(basicPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .setValue(basicPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .executeScript(basicPage.registerForm)
-                .executeScript(basicPage.agreement)
+                .setValue(registerPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .setValue(registerPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .executeScript(registerPage.registerForm)
+                .executeScript(registerPage.agreement)
+                .click(registerPage.login)
                 .assertEqual(userName,userDAO.findUserNameById(userId));
 
     }
@@ -165,6 +166,8 @@ public class JsFileTest
 {
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
+    private FilePath filePath;
+    private RegisterPage registerPage;
     
     @BeforeEach
     public void before(){
@@ -172,6 +175,7 @@ public class JsFileTest
         System.setProperty("webdriver.chrome.driver", path);
         driver = new ChromeDriver();
         jsExecutor = new JavaScriptExecutor(driver);
+        registerPage = new RegisterPage(driver);
         filePath = new FilePath();
 
     }
@@ -180,9 +184,10 @@ public class JsFileTest
     public void jsFileTest(){
 
         jsExecutor
-                .goToUrl(registerPage)
+                .goToUrl(registerPageUrl)
                 .sleep(5)
-                .executeScriptWithinFile("individualForm",basicPage.userFormPath);
+                .executeScriptWithinFile("individualForm",filePath.userFormPath);
+                .click(registerPage.login)
 
     }
 }
