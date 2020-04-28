@@ -37,6 +37,6 @@ public class BasicPage
     @ExecBy(jquery = "$('#agreement > label').click()")
     public String agreement;
 
-    @ExecBy(jsPath = "/Users/sezai.can/Documents/sezai/repo/jsexecutor/jsexecutor-core/src/test/java/js/userForm.js")
+    @ExecBy(jsPath = "js/userForm.js")
     public String userFormPath;
 }

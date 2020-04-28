@@ -258,7 +258,7 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
 
         if (object instanceof By)
         {
-            ///TODO : remotedriver veya webdriver için kontrol yapılı hangisi null deilse o gönderilmeli. şuanda webdriver gidiyor.sabit.
+            ///TODO : remotedriver
             CastManager castManager = new CastManager(driver);
 
             object = castManager.castWebElement(object);
@@ -418,11 +418,11 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
         return executeScript(Constants.SetValue.SEND_KEYS, object, value);
     }
 
-    //TODO : thread sleep gibi davranmıyor. ms olarak doğru zamanı bekletmiyor olabilir.
+    //TODO : fixme
     @Override
     public JavaScriptExecutor sleep(int milliseconds)
     {
-        return executeScript(Constants.DelayedGreeting.SLEEP, milliseconds);
+        return executeScript(Constants.DelayedGreeting.SLEEP, (milliseconds*1000));
     }
 
     /**
