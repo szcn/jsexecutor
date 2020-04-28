@@ -81,7 +81,7 @@ public class UserDAO
 ### Test
 
 ```java
-public class BasicTest
+public class UserTest
 {
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
@@ -100,7 +100,7 @@ public class BasicTest
     }
 
     @Test
-    public void basicTest(){
+    public void userRegisterTest(){
 
         jsExecutor
                 .goToUrl(homePage)
@@ -117,7 +117,7 @@ public class BasicTest
 }
 ```
 
-### JS File
+### JS File : userForm.js
 
 ```javascript
 
@@ -162,7 +162,7 @@ public class FilePath
 ### Test
 
 ```java
-public class JsFileTest
+public class UserTest
 {
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
@@ -181,7 +181,7 @@ public class JsFileTest
     }
 
     @Test
-    public void jsFileTest(){
+    public void userRegisterTest(){
 
         jsExecutor
                 .goToUrl(registerPageUrl)
