@@ -17,8 +17,8 @@ How does it work?
 ###...
 Here is a small example of basic syntax.
 
+### Page
 ```java
-###Page
 
 public class BasicPage
 {
@@ -50,9 +50,11 @@ public class BasicPage
     @ExecBy(jquery = "$('#agreement > label').click()")
     public String agreement;
 }
+```
     
-###DAO
+### DAO
 
+```java
 public class UserDAO
 {
     @Autowired
@@ -74,9 +76,11 @@ public class UserDAO
     }
 
 }
+```
 
-###Test
+### Test
 
+```java
 public class BasicTest
 {
     private WebDriver driver;
@@ -112,9 +116,9 @@ public class BasicTest
 }
 ```
 
-```javascript
-
 ### JS File
+
+```javascript
 
 var individualForm = function () {
 
@@ -137,10 +141,9 @@ var corporateForm = function () {
 };
 
 ```
+### File Path
 
 ```java
-
-### File Class
 
 public class FilePath
 {
@@ -153,10 +156,11 @@ public class FilePath
     @ExecBy(jsPath = "js/userForm.js")
     public String userFormPath;
 }
-
+```
 
 ### Test
 
+```java
 public class JsFileTest
 {
     private WebDriver driver;
