@@ -1,8 +1,9 @@
 package manager;
 
+import exception.JavaScriptExecutorException;
 import lombok.extern.slf4j.Slf4j;
+import util.ErrorCode;
 
-import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +24,14 @@ public class ScriptEngineManager
 
     public String eval(String var){
 
-        return scannerFunc(var);
+        String func = scannerFunc(var);;
+
+        if (func.isEmpty()){
+
+            throw new JavaScriptExecutorException(ErrorCode.FUNCTION_NOT_FOUND, "Function not found : " + var);
+        }
+
+        return func;
     }
 
     /*public String eval(String func){

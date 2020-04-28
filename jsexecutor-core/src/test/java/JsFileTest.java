@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import page.BasicPage;
+import page.UserRegisterPage;
 
 import java.io.FileNotFoundException;
 
@@ -15,7 +15,7 @@ public class JsFileTest
 
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
-    private BasicPage basicPage;
+    private UserRegisterPage userRegisterPage;
 
     @BeforeEach
     public void before(){
@@ -23,7 +23,7 @@ public class JsFileTest
         System.setProperty("webdriver.chrome.driver", path);
         driver = new ChromeDriver();
         jsExecutor = new JavaScriptExecutor(driver);
-        basicPage = new BasicPage(driver);
+        userRegisterPage = new UserRegisterPage(driver);
 
     }
 
@@ -33,7 +33,7 @@ public class JsFileTest
         jsExecutor
                 .goToUrl(url)
                 .sleep(5000)
-                .executeScriptWithinFile("individualForm",basicPage.userFormPath);
+                .executeScriptWithinFile("individualForm", userRegisterPage.userFormPath);
     }
 
 

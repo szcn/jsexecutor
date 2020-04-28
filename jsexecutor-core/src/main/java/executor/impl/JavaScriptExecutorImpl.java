@@ -25,6 +25,7 @@ public interface JavaScriptExecutorImpl
 
     /**
      * LocalStorage
+     * @param item item
      **/
 
     void removeItemFromLocalStorage(String item);
@@ -43,6 +44,7 @@ public interface JavaScriptExecutorImpl
 
     /**
      * SessionStorage
+     * @param item
      **/
 
     void removeItemFromSessionStorage(String item);
@@ -61,6 +63,7 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Scroll
+     * @param element
      **/
 
     JavaScriptExecutor scrollWithElement(WebElement element);
@@ -79,6 +82,7 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Click
+     * @param object
      **/
 
     JavaScriptExecutor click(Object object);
@@ -100,11 +104,15 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Url
+     * @param url
+     * @return
      **/
     JavaScriptExecutor goToUrl(String url);
 
     /**
      * Set Value
+     * @param object
+     * @param value
      **/
     JavaScriptExecutor setValue(Object object, String value);
 
@@ -126,6 +134,7 @@ public interface JavaScriptExecutorImpl
 
     /**
      * checkbox
+     * @param object
      **/
 
     boolean isCheckBoxChecked(Object object);
@@ -136,12 +145,15 @@ public interface JavaScriptExecutorImpl
 
     /**
      * Assert
+     * @param object
      **/
 
     boolean isDisplayed(Object object);
 
     /**
      * Is Attribute Present
+     * @param object
+     * @param attributeName
      **/
 
     boolean isAttributePresent(Object object, Object attributeName);

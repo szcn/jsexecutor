@@ -6,7 +6,7 @@
 
     <groupId>com.jsexecutor</groupId>
     <artifactId>jsexecutor-core</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <packaging>jar</packaging>
     <name>Jsexecutor Core</name>
     <url>http://jsexecutor.com/</url>
@@ -106,20 +106,9 @@
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <version>1.3.2</version>
-        </dependency>
     </dependencies>
 
     <build>
-        <!--<pluginManagement>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -182,16 +171,13 @@
                             <goal>aggregate</goal>
                         </goals>
                         <phase>site</phase>
-                        <!--<configuration>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>-->
                     </execution>
                 </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <!--<version>3.2.1</version>-->
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -215,7 +201,6 @@
                 </executions>
             </plugin>
         </plugins>
-        <!--</pluginManagement>-->
     </build>
 
     <profiles>
@@ -269,10 +254,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
             </plugin>
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>

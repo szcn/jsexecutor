@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import page.BasicPage;
+import page.UserRegisterPage;
 import util.DataType;
 
 import javax.script.ScriptException;
@@ -12,7 +12,7 @@ import javax.script.ScriptException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class BasicTest
+public class UserTest
 {
 
     private final static String url= "https://www.sahibinden.com/";
@@ -20,7 +20,7 @@ public class BasicTest
 
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
-    private BasicPage basicPage;
+    private UserRegisterPage userRegisterPage;
 
     @BeforeEach
     public void before(){
@@ -28,23 +28,22 @@ public class BasicTest
         System.setProperty("webdriver.chrome.driver", path);
         driver = new ChromeDriver();
         jsExecutor = new JavaScriptExecutor(driver);
-        basicPage = new BasicPage(driver);
+        userRegisterPage = new UserRegisterPage(driver);
 
     }
 
     @Test
-    public void basicTest() throws IOException, ScriptException, NoSuchMethodException, URISyntaxException
+    public void userRegisterTest() throws IOException, ScriptException, NoSuchMethodException, URISyntaxException
     {
 
         jsExecutor
                 .goToUrl(url)
-                .click(basicPage.signup)
+                .click(userRegisterPage.signup)
                 .sleep(5000)
-                .setValue(basicPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .setValue(basicPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .executeScript(basicPage.registerForm)
-                .executeScript(basicPage.agreement);
-
+                .setValue(userRegisterPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .setValue(userRegisterPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .executeScript(userRegisterPage.registerForm)
+                .executeScript(userRegisterPage.agreement);
 
     }
 

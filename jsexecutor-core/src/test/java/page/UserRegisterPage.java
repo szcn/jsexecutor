@@ -7,10 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class BasicPage
+public class UserRegisterPage
 {
 
-    public BasicPage(WebDriver driver)
+    public UserRegisterPage(WebDriver driver)
     {
         PageFactory.initElements(driver, this);
         new BuilderManager(this);
