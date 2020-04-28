@@ -55,6 +55,7 @@ public class RegisterPage
 ### Dao
 
 ```java
+
 public class UserDAO
 {
     @Autowired
@@ -103,14 +104,13 @@ public class UserTest
     public void userRegisterTest(){
 
         jsExecutor
-                .goToUrl(homePage)
-                .click(registerPage.signup)
+                .goToUrl(registerPageUrl)
                 .sleep(5)
                 .setValue(registerPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
                 .setValue(registerPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
                 .executeScript(registerPage.registerForm)
                 .executeScript(registerPage.agreement)
-                .click(registerPage.login)
+                .click(registerPage.signup)
                 .assertEqual(userName,userDAO.findUserNameById(userId));
 
     }
@@ -187,7 +187,7 @@ public class UserTest
                 .goToUrl(registerPageUrl)
                 .sleep(5)
                 .executeScriptWithinFile("individualForm",filePath.userFormPath);
-                .click(registerPage.login)
+                .click(registerPage.signup)
 
     }
 }
