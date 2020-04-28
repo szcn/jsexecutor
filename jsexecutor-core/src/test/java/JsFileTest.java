@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 
 public class JsFileTest
 {
-    private final static String url= "https://www.sahibinden.com/";
+    private final static String url= "https://secure.sahibinden.com/kayit";
     private final static String path = "/opt/chromedriver";
 
     private WebDriver driver;
@@ -32,12 +32,8 @@ public class JsFileTest
     {
         jsExecutor
                 .goToUrl(url)
-                .click(basicPage.signup)
                 .sleep(5000)
-                //TODO : bunu jsfile ile var olarak gönder anatasyonun içinde sonra individualForm:path olarak set edilen yerde managerde birleştir sonra scannerda kes
                 .executeScriptWithinFile("individualForm",basicPage.userFormPath);
-
-
     }
 
 

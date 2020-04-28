@@ -182,9 +182,9 @@
                             <goal>aggregate</goal>
                         </goals>
                         <phase>site</phase>
-                        <configuration>
+                        <!--<configuration>
                             <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>
+                        </configuration>-->
                     </execution>
                 </executions>
             </plugin>
@@ -237,7 +237,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <!--<additionalparam>-Xdoclint:none</additionalparam>-->
                 </configuration>
                 <reportSets>
                     <reportSet>

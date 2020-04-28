@@ -13,20 +13,12 @@ public class ScriptEngineManager
 {
     private StringBuilder stringBuilder;
     private Scanner scanner;
-    private String filePath;
 
-    public ScriptEngineManager(@NotNull String filePath)
-    {
-        this.filePath = filePath;
-    }
-
-    @PostConstruct
-    public void init() throws FileNotFoundException
+    public ScriptEngineManager(@NotNull String filePath) throws FileNotFoundException
     {
         stringBuilder = new StringBuilder();
         File file = new File(filePath);
         scanner = new Scanner(file);
-
     }
 
     public String eval(String var){
@@ -34,43 +26,43 @@ public class ScriptEngineManager
         return scannerFunc(var);
     }
 
+    /*public String eval(String func){
+
+        return scannerFunc(func);
+    }*/
+
 
     private String scannerFunc(String var)
     {
         while (scanner.hasNextLine())
         {
+            String firstLane = scanner.nextLine();
 
-            String y = scanner.nextLine();
-
-            if (y.startsWith("var " + var))
+            //TODO : shl add func
+            if (firstLane.startsWith("var " + var))
             {
-
-                //TODO : func ismi yoksa hata fırlatmalı.
                 stringBuilder
-                        .append(y);
+                        .append(firstLane);
                 while (scanner.hasNextLine())
                 {
 
-                    String x = scanner.nextLine();
+                    String endLane = scanner.nextLine();
 
-                    if (!x.startsWith("};"))
+                    if (!endLane.startsWith("};"))
                     {
 
-                        stringBuilder.append(x);
+                        stringBuilder.append(endLane);
 
                     }
-                    if (x.startsWith("};"))
+                    else if (endLane.startsWith("};"))
                     {
 
-                        return stringBuilder.append(x).toString() + var + "();";
+                        return stringBuilder.append(endLane).toString() + var + "();";
                     }
 
                 }
 
             }
-
-            System.out.println("Gelme saysııs : ");
-            System.out.println(stringBuilder.toString());
         }
 
         return "";

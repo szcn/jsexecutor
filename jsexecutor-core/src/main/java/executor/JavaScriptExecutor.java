@@ -23,6 +23,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 import util.DataType;
+
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -75,7 +77,7 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     }
 
     @Override
-    public JavaScriptExecutor executeScriptWithinFile(String var, String filePath)
+    public JavaScriptExecutor executeScriptWithinFile(String var, String filePath) throws FileNotFoundException
     {
 
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager(filePath);
@@ -86,7 +88,7 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     }
 
     @Override
-    public <T> T executeScriptWithinFile(Class<T> clazz, String var, String filePath)
+    public <T> T executeScriptWithinFile(Class<T> clazz, String var, String filePath) throws FileNotFoundException
     {
 
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager(filePath);
