@@ -52,7 +52,7 @@ public class BasicPage
 }
 ```
     
-### DAO
+### Dao
 
 ```java
 public class UserDAO
