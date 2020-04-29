@@ -211,7 +211,7 @@ To add a dependency on JavascriptExecutor using Maven, use the following:
 <dependency>
   <groupId>com.jsexecutor</groupId>
   <artifactId>jsexecutor-core</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
 </dependency>
 ```
 
