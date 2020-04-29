@@ -30,7 +30,7 @@ public class ScriptEngineManager
     private void initialize() throws FileNotFoundException
     {
 
-        Validate.requireNonNull(functionContext.getTie(), "Object must not be empty : ");
+        Validate.requireNonNull(functionContext.getTie(), "Object must not be empty.");
 
         stringBuilder = new StringBuilder();
 
