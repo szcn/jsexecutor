@@ -1,32 +1,70 @@
 package manager;
 
+import constants.Regex;
+import context.FunctionContext;
 import exception.JavaScriptExecutorException;
 import lombok.extern.slf4j.Slf4j;
-import util.ErrorCode;
+import exception.ErrorCode;
+import util.Validate;
 
-import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class ScriptEngineManager
 {
     private StringBuilder stringBuilder;
     private Scanner scanner;
+    private FunctionContext functionContext;
 
-    public ScriptEngineManager(@NotNull String filePath) throws FileNotFoundException
+    public ScriptEngineManager()
     {
-        stringBuilder = new StringBuilder();
-        File file = new File(filePath);
-        scanner = new Scanner(file);
+        functionContext = new FunctionContext();
     }
 
-    public String eval(String var){
+    private void initialize() throws FileNotFoundException
+    {
 
-        String func = scannerFunc(var);;
+        Validate.requireNonNull(functionContext.getTie(), "Object must not be empty : ");
 
-        if (func.isEmpty()){
+        stringBuilder = new StringBuilder();
+
+        functionContext.setScriptPath
+                (
+                        disassemble().entrySet().stream()
+                                .filter(e -> e.getKey().equals(Pieces.SCRIPT_PATH))
+                                .map(Map.Entry::getValue)
+                                .collect(Collectors.joining())
+                );
+
+        scanner = new Scanner(new File(functionContext.getScriptPath()));
+
+        functionContext.setFuncName
+                (
+                        disassemble().entrySet().stream()
+                                .filter(e -> e.getKey().equals(Pieces.SCRIPT_PATH))
+                                .map(Map.Entry::getValue)
+                                .collect(Collectors.joining())
+                );
+
+    }
+
+    public String eval(String var) throws FileNotFoundException
+    {
+
+        functionContext.setTie(var);
+
+        initialize();
+
+        String func = scannerFunc(functionContext.getFuncName());
+
+        if (func.isEmpty())
+        {
 
             throw new JavaScriptExecutorException(ErrorCode.FUNCTION_NOT_FOUND, "Function not found : " + var);
         }
@@ -34,20 +72,14 @@ public class ScriptEngineManager
         return func;
     }
 
-    /*public String eval(String func){
-
-        return scannerFunc(func);
-    }*/
-
-
-    private String scannerFunc(String var)
+    private String scannerFunc(String funcName)
     {
         while (scanner.hasNextLine())
         {
             String firstLane = scanner.nextLine();
 
             //TODO : shl add func
-            if (firstLane.startsWith("var " + var))
+            if (firstLane.startsWith("var " + funcName))
             {
                 stringBuilder
                         .append(firstLane);
@@ -65,7 +97,7 @@ public class ScriptEngineManager
                     else if (endLane.startsWith("};"))
                     {
 
-                        return stringBuilder.append(endLane).toString() + var + "();";
+                        return stringBuilder.append(endLane).toString() + funcName + "();";
                     }
 
                 }
@@ -74,6 +106,35 @@ public class ScriptEngineManager
         }
 
         return "";
+    }
+
+    private Map<String, String> disassemble()
+    {
+
+        Map<String, String> pieceMap = new HashMap<>();
+
+        pieceMap.put(Pieces.FUNCTION_NAME.getValue(), Pattern.compile(Regex.FUNC_NAME).matcher(functionContext.getTie()).toString());
+        pieceMap.put(Pieces.SCRIPT_PATH.getValue(), Pattern.compile(Regex.SCRIPT_PATH).matcher(functionContext.getTie()).toString());
+
+        return pieceMap;
+    }
+
+    public enum Pieces
+    {
+        FUNCTION_NAME("function_name"),
+        SCRIPT_PATH("script_path");
+
+        private final String piece;
+
+        Pieces(final String piece)
+        {
+            this.piece = piece;
+        }
+
+        public String getValue()
+        {
+            return piece;
+        }
 
     }
 }

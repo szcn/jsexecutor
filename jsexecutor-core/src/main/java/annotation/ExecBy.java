@@ -15,7 +15,7 @@ public @interface ExecBy
 
     String sql() default "";
 
-    String jsPath() default "";
+    String path() default "";
 
     String func() default "";
 

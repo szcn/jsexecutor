@@ -36,10 +36,14 @@ public class BuilderManager
                     jField.set(clz, execBy.jquery());
                 if (!execBy.sql().isEmpty())
                     jField.set(clz, execBy.sql());
-                if (!execBy.jsPath().isEmpty())
-                    jField.set(clz, execBy.jsPath());
+                if (!execBy.path().isEmpty())
+                    jField.set(clz, execBy.path());
                 if (!execBy.func().isEmpty())
                     jField.set(clz, execBy.func());
+                if (!execBy.func().isEmpty() && !execBy.path().isEmpty())
+                {
+                    jField.set(clz, "func["+execBy.func()+"]"+"path["+execBy.path()+"]");
+                }
             }
             catch (IllegalAccessException ae)
             {
@@ -120,4 +124,5 @@ public class BuilderManager
             return object.toString().split(Regex.FINDER_VALUE)[1].split("(.$)")[0];
         }
     }
+
 }

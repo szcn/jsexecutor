@@ -37,6 +37,6 @@ public class UserRegisterPage
     @ExecBy(jquery = "$('#agreement > label').click()")
     public String agreement;
 
-    @ExecBy(jsPath = "js/userForm.js")
+    @ExecBy(path = "js/userForm.js", func = "individualForm")
     public String userFormPath;
 }
