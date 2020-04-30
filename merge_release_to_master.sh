@@ -21,7 +21,7 @@ echo "Singing and deploy to maven"
 path=~/.m2/repository/com/jsexecutor/jsexecutor-core/"${version}"/jsexecutor-core-"${version}"
 
 i=1
-for jar in .jar, .pom, -javadoc.jar, -sources.jar; do
+for jar in .jar .pom -javadoc.jar -sources.jar; do
 
  gpg --passphrase "${passphrase}" --output "${path}"$jar.sig --sign "${path}"$jar
 
