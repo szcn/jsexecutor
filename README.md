@@ -154,7 +154,7 @@ public class FilePath
         new BuilderManager(this);
     }
     
-    @ExecBy(path = "js/userForm.js", func = "individualForm")
+    @ExecBy(func = "individualForm", path = "js/userForm.js")
     public String fillUserForm;
 }
 ```
