@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import page.UserRegisterPage;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class JsFileTest
 {
@@ -28,12 +28,12 @@ public class JsFileTest
     }
 
     @Test
-    public void jsFileTest() throws FileNotFoundException
+    public void jsFileTest() throws IOException
     {
         jsExecutor
                 .goToUrl(url)
                 .sleep(5000)
-                .executeScriptWithinFile("individualForm", userRegisterPage.userFormPath);
+                .executeScriptWithinFile(userRegisterPage.fillUserForm);
     }
 
 

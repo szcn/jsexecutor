@@ -5,15 +5,17 @@ import context.FunctionContext;
 import exception.JavaScriptExecutorException;
 import lombok.extern.slf4j.Slf4j;
 import exception.ErrorCode;
+import util.Pieces;
 import util.Validate;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class ScriptEngineManager
@@ -36,20 +38,14 @@ public class ScriptEngineManager
 
         functionContext.setScriptPath
                 (
-                        disassemble().entrySet().stream()
-                                .filter(e -> e.getKey().equals(Pieces.SCRIPT_PATH))
-                                .map(Map.Entry::getValue)
-                                .collect(Collectors.joining())
+                        disassemble().get(Pieces.SCRIPT_PATH.getValue())
                 );
 
         scanner = new Scanner(new File(functionContext.getScriptPath()));
 
-        functionContext.setFuncName
+        functionContext.setFunctionName
                 (
-                        disassemble().entrySet().stream()
-                                .filter(e -> e.getKey().equals(Pieces.SCRIPT_PATH))
-                                .map(Map.Entry::getValue)
-                                .collect(Collectors.joining())
+                        disassemble().get(Pieces.FUNCTION_NAME.getValue())
                 );
 
     }
@@ -61,7 +57,7 @@ public class ScriptEngineManager
 
         initialize();
 
-        String func = scannerFunc(functionContext.getFuncName());
+        String func = scannerFunc(functionContext.getFunctionName());
 
         if (func.isEmpty())
         {
@@ -110,31 +106,42 @@ public class ScriptEngineManager
 
     private Map<String, String> disassemble()
     {
-
         Map<String, String> pieceMap = new HashMap<>();
 
-        pieceMap.put(Pieces.FUNCTION_NAME.getValue(), Pattern.compile(Regex.FUNC_NAME).matcher(functionContext.getTie()).toString());
-        pieceMap.put(Pieces.SCRIPT_PATH.getValue(), Pattern.compile(Regex.SCRIPT_PATH).matcher(functionContext.getTie()).toString());
+        EnumSet.allOf(Pieces.class)
+                .forEach(e -> {
+
+                    if (e.equals(Pieces.FUNCTION_NAME))
+                    {
+                        pieceMap.put(Pieces.FUNCTION_NAME.getValue(), resolveParam(Regex.FUNCTON_NAME));
+                    }
+                    else if (e.equals(Pieces.SCRIPT_PATH))
+                    {
+
+                        pieceMap.put(Pieces.SCRIPT_PATH.getValue(), resolveParam(Regex.SCRIPT_PATH));
+
+                    }
+                });
 
         return pieceMap;
     }
 
-    public enum Pieces
+    private String resolveParam(String regex)
     {
-        FUNCTION_NAME("function_name"),
-        SCRIPT_PATH("script_path");
 
-        private final String piece;
+        String param = null;
 
-        Pieces(final String piece)
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(functionContext.getTie());
+
+        while (matcher.find())
         {
-            this.piece = piece;
+
+            param = matcher.group();
         }
 
-        public String getValue()
-        {
-            return piece;
-        }
+        return param;
 
     }
 }
