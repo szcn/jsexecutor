@@ -27,5 +27,5 @@ for jar in jar, pom, javadoc.jar, sources.jar; do
 
 done
 
-mvn --settings ~/.m2/"${settings}".xml deploy
+mvn --settings ~/.m2/"${settings}".xml clean deploy
 echo "Deploy finished."
