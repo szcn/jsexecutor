@@ -14,14 +14,16 @@ cd jsexecutor-core/ || exit 1
 
 echo "$PWD"
 
-mvn --settings ~/.m2/${settings}.xml clean install -Dgpg.skip
+mvn --settings ~/.m2/"${settings}".xml clean install -Dgpg.skip
 
 echo "Singing and deploy to maven"
 
-i=1
-for jar in jar, pom, javadoc.jar, sources.jar; do
+path=~/.m2/repository/com/jsexecutor/jsexecutor-core/"${version}"/jsexecutor-core-"${version}"
 
-  gpg --passphrase "${passphrase}" --output target/jsexecutor-core-"${version}".$jar.sig --sign target/jsexecutor-core-"${version}".$jar
+i=1
+for jar in .jar .pom -javadoc.jar -sources.jar; do
+
+ gpg --passphrase "${passphrase}" --output "${path}"$jar.sig --sign "${path}"$jar
 
   echo "Sign : $jar"
 
