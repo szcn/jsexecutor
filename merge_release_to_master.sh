@@ -2,23 +2,30 @@
 
 version=$1
 settings=$2
+passphrase=$3
 
-last_version=$(git describe --abbrev=0 --tags)
+#last_version=$(git describe --abbrev=0 --tags)
 
-echo "Tag $last_tag"
+#echo "Tag $last_tag"
 
-git checkout ${last_version}
+#git checkout ${last_version}
+
+cd jsexecutor-core/ || exit 1
+
+echo "$PWD"
 
 mvn --settings ~/.m2/${settings}.xml clean install -Dgpg.skip
 
-
 echo "Singing and deploy to maven"
 
-gpg --output target/jsexecutor-core-${version}.jar.sig --sign target/jsexecutor-core-${version}.jar
-gpg --output target/jsexecutor-core-${version}.pom.sig --sign target/jsexecutor-core-${version}.pom
-gpg --output target/jsexecutor-core-${version}-javadoc.jar.sig --sign target/jsexecutor-core-${version}-javadoc.jar
-gpg --output target/jsexecutor-core-${version}-sources.jar.sig --sign target/jsexecutor-core-${version}-sources.jar
+i=1
+for jar in jar, pom, javadoc.jar, sources.jar; do
 
-mvn --settings ~/.m2/${settings}.xml clean deploy
+  gpg --passphrase "${passphrase}" --output target/jsexecutor-core-"${version}".$jar.sig --sign target/jsexecutor-core-"${version}".$jar
 
+  echo "Sign : $jar"
+
+done
+
+mvn --settings ~/.m2/"${settings}".xml deploy
 echo "Deploy finished."
