@@ -57,7 +57,7 @@ public class ScriptEngineManager
 
         initialize();
 
-        String func = scannerFunc(functionContext.getFunctionName());
+        String func = scannerFunction(functionContext.getFunctionName());
 
         if (func.isEmpty())
         {
@@ -68,14 +68,14 @@ public class ScriptEngineManager
         return func;
     }
 
-    private String scannerFunc(String funcName)
+    private String scannerFunction(String functionName)
     {
         while (scanner.hasNextLine())
         {
             String firstLane = scanner.nextLine();
 
             //TODO : shl add func
-            if (firstLane.startsWith("var " + funcName))
+            if (firstLane.startsWith("var " + functionName))
             {
                 stringBuilder
                         .append(firstLane);
@@ -93,7 +93,7 @@ public class ScriptEngineManager
                     else if (endLane.startsWith("};"))
                     {
 
-                        return stringBuilder.append(endLane).toString() + funcName + "();";
+                        return stringBuilder.append(endLane).toString() + functionName + "();";
                     }
 
                 }
