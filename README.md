@@ -154,8 +154,8 @@ public class FilePath
         new BuilderManager(this);
     }
     
-    @ExecBy(jsPath = "js/userForm.js")
-    public String userFormPath;
+    @ExecBy(path = "js/userForm.js", func = "individualForm")
+    public String fillUserForm;
 }
 ```
 
@@ -186,7 +186,7 @@ public class UserTest
         jsExecutor
                 .goToUrl(registerPageUrl)
                 .sleep(5)
-                .executeScriptWithinFile("individualForm",filePath.userFormPath);
+                .executeScriptWithinFile(filePath.fillUserForm);
                 .click(registerPage.signup)
 
     }
@@ -211,7 +211,7 @@ To add a dependency on JavascriptExecutor using Maven, use the following:
 <dependency>
   <groupId>com.jsexecutor</groupId>
   <artifactId>jsexecutor-core</artifactId>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
 </dependency>
 ```
 
@@ -222,13 +222,13 @@ mvn clean install
 To add a dependency using Gradle Groovy:
 
 ```gradle
-implementation 'com.jsexecutor:jsexecutor-core:1.0.5'
+implementation 'com.jsexecutor:jsexecutor-core:1.0.7'
 ```
 
 To add a dependency using Gradle Kotlin:
 
 ```gradle
-implementation("com.jsexecutor:jsexecutor-core:1.0.5")
+implementation("com.jsexecutor:jsexecutor-core:1.0.7")
 ```
 
 All releases are available in
