@@ -33,7 +33,7 @@ public class UserTest
     }
 
     @Test
-    public void userRegisterTest() throws IOException, ScriptException, NoSuchMethodException, URISyntaxException
+    public void userRegisterTest()
     {
 
         jsExecutor
