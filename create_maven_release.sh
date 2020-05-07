@@ -23,7 +23,9 @@ path=~/.m2/repository/com/jsexecutor/jsexecutor-core/"${version}"/jsexecutor-cor
 i=1
 for jar in .jar .pom -javadoc.jar -sources.jar; do
 
- gpg --passphrase "${passphrase}" --output "${path}"$jar.sig --sign "${path}"$jar
+  echo "path : $path"
+
+  gpg --passphrase "${passphrase}" --output "${path}"$jar.sig --sign "${path}"$jar
 
   echo "Sign : $jar"
 
