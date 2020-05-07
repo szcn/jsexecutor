@@ -1,6 +1,6 @@
 package action;
 
-import annotation.ExecBy;
+import annotation.Exec;
 import constants.Constants.Arguments;
 import manager.BuilderManager;
 
@@ -11,6 +11,6 @@ public class Zoom
         new BuilderManager(this);
     }
 
-    @ExecBy(js = "document.body.style.zoom = " + Arguments.FIRST)
+    @Exec(js = "document.body.style.zoom = " + Arguments.FIRST)
     public String pageZoom;
 }

@@ -1,7 +1,7 @@
 package action;
 
 import constants.Constants.Arguments;
-import annotation.ExecBy;
+import annotation.Exec;
 import manager.BuilderManager;
 
 public class Displayed
@@ -11,7 +11,7 @@ public class Displayed
         new BuilderManager(this);
     }
 
-    @ExecBy(js = "function isVisible(elem) {\n" +
+    @Exec(js = "function isVisible(elem) {\n" +
             "    if (!(elem instanceof Element)) throw Error('DomUtil: elem is not an element.');\n" +
             "    const style = getComputedStyle(elem);\n" +
             "    if (style.display === 'none') return false;\n" +

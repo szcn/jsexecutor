@@ -1,6 +1,6 @@
 package util;
 
-import annotation.ExecBy;
+import annotation.Exec;
 import executor.JavaScriptExecutor;
 import manager.BuilderManager;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +12,7 @@ public class Purview
         new BuilderManager(getClass().getEnclosingClass());
     }
 
-    @ExecBy(js = "const rect = arguments[0].getBoundingClientRect();" +
+    @Exec(js = "const rect = arguments[0].getBoundingClientRect();" +
             "const windowHeight = (window.innerHeight || document.documentElement.clientHeight);" +
             "const windowWidth = (window.innerWidth || document.documentElement.clientWidth);" +
             "const vertInView = (rect.top <= windowHeight) && ((rect.top + rect.height) >= 0);" +

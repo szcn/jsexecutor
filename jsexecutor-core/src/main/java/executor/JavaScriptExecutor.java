@@ -9,10 +9,12 @@ import action.Random;
 import action.Select;
 import action.TextField;
 import action.Wait;
+import action.Write;
 import action.Zoom;
 import constants.Constants;
 import constants.Regex;
 import executor.impl.JavaScriptExecutorImpl;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import manager.BuilderManager;
 import manager.CastManager;
@@ -23,6 +25,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 import util.DataType;
+
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.List;
 
@@ -76,7 +80,7 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     }
 
     @Override
-    public JavaScriptExecutor executeScriptWithinFile(String var) throws IOException
+    public JavaScriptExecutor invokeFunction(String var) throws IOException
     {
 
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
@@ -87,13 +91,24 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     }
 
     @Override
-    public <T> T executeScriptWithinFile(Class<T> clazz, String var) throws IOException
+    public <T> T invokeFunction(@NotNull Class<T> clazz, String var) throws IOException
     {
 
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
 
 
         return clazz.cast(jExecutor.executeScript(scriptEngineManager.eval(var)));
+    }
+
+    @Override
+    public JavaScriptExecutor invokeFunction(String var, Object... args) throws IOException
+    {
+
+        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+
+        jExecutor.executeScript(scriptEngineManager.eval(var),args);
+
+        return this;
     }
 
 
@@ -414,10 +429,18 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     @Override
     public JavaScriptExecutor setValue(Object object, String value)
     {
-        return executeScript(Constants.SetValue.SEND_KEYS, object, value);
+        return executeScript(new Write().setValue, object, value);
     }
 
-    //TODO : fixme
+    @Deprecated
+    @SneakyThrows
+    @Override
+    public JavaScriptExecutor setValueWithJSF(Object object, String value)
+    {
+        return invokeFunction(new Write().setValueWithJSF, object, value);
+    }
+
+    //TODO : fixme ,sc
     @Override
     public JavaScriptExecutor sleep(int milliseconds)
     {

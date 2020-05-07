@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import util.DataType;
 
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -20,9 +21,11 @@ public interface JavaScriptExecutorImpl
 
     <T> T executeScript(Class<T> clazz, String script, Object... args);
 
-    JavaScriptExecutor executeScriptWithinFile(String var) throws IOException, URISyntaxException;
+    JavaScriptExecutor invokeFunction(String var) throws IOException, URISyntaxException;
 
-    <T> T executeScriptWithinFile(Class<T> clazz, String var) throws IOException, URISyntaxException;
+    JavaScriptExecutor invokeFunction(String var, Object... args) throws IOException, URISyntaxException;
+
+    <T> T invokeFunction(@NotNull Class<T> clazz, String var) throws IOException, URISyntaxException;
 
     /**
      * LocalStorage
@@ -119,6 +122,8 @@ public interface JavaScriptExecutorImpl
      * @return JavaScriptExecutor
      **/
     JavaScriptExecutor setValue(Object object, String value);
+
+    JavaScriptExecutor setValueWithJSF(Object object, String value) throws IOException;
 
     JavaScriptExecutor sleep(int time);
 

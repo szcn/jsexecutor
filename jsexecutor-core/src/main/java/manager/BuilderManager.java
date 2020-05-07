@@ -1,6 +1,6 @@
 package manager;
 
-import annotation.ExecBy;
+import annotation.Exec;
 import constants.FinderType;
 import constants.Regex;
 import exception.JavaScriptExecutorException;
@@ -23,26 +23,26 @@ public class BuilderManager
     private void buildIt(Object clz)
     {
         Arrays.stream(clz.getClass().getDeclaredFields()).parallel().filter(jField
-                -> jField.isAnnotationPresent(ExecBy.class)).forEach(jField
+                -> jField.isAnnotationPresent(Exec.class)).forEach(jField
                 -> {
 
-            ExecBy execBy = jField.getAnnotation(ExecBy.class);
+            Exec exec = jField.getAnnotation(Exec.class);
             jField.setAccessible(true);
             try
             {
-                if (!execBy.js().isEmpty())
-                    jField.set(clz, execBy.js());
-                if (!execBy.jquery().isEmpty())
-                    jField.set(clz, execBy.jquery());
-                if (!execBy.sql().isEmpty())
-                    jField.set(clz, execBy.sql());
-                if (!execBy.path().isEmpty())
-                    jField.set(clz, execBy.path());
-                if (!execBy.func().isEmpty())
-                    jField.set(clz, execBy.func());
-                if (!execBy.func().isEmpty() && !execBy.path().isEmpty())
+                if (!exec.js().isEmpty())
+                    jField.set(clz, exec.js());
+                if (!exec.jquery().isEmpty())
+                    jField.set(clz, exec.jquery());
+                if (!exec.sql().isEmpty())
+                    jField.set(clz, exec.sql());
+                if (!exec.path().isEmpty())
+                    jField.set(clz, exec.path());
+                if (!exec.func().isEmpty())
+                    jField.set(clz, exec.func());
+                if (!exec.func().isEmpty() && !exec.path().isEmpty())
                 {
-                    jField.set(clz, "func["+execBy.func()+"]"+"path["+execBy.path()+"]");
+                    jField.set(clz, "func["+ exec.func()+"]"+"path["+ exec.path()+"]");
                 }
             }
             catch (IllegalAccessException ae)

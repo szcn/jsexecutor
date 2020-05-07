@@ -61,11 +61,6 @@ public abstract class Constants
                 + "window.scrollBy(0, elementTop-(viewPortHeight/2));";
     }
 
-    public abstract static class SetValue
-    {
-        public static final String SEND_KEYS = Arguments.FIRST + ".value = " + Arguments.SECOND;
-    }
-
     public abstract static class Clear
     {
         public static final String CLEAR = Arguments.FIRST + ".value = ''";

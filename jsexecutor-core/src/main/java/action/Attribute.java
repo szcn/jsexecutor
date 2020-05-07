@@ -1,6 +1,6 @@
 package action;
 
-import annotation.ExecBy;
+import annotation.Exec;
 
 import constants.Constants.Arguments;
 import manager.BuilderManager;
@@ -17,12 +17,12 @@ public class Attribute
      * isAttribute
      **/
 
-    @ExecBy(js = "var value = " + Arguments.FIRST + ".getAttribute(" + Arguments.SECOND + "); if(value !== null) {return true} else return false;")
+    @Exec(js = "var value = " + Arguments.FIRST + ".getAttribute(" + Arguments.SECOND + "); if(value !== null) {return true} else return false;")
     public String isAttributePresent;
 
-    @ExecBy(js = "return " + Arguments.FIRST + ".getAttribute(" + Arguments.SECOND + ");")
+    @Exec(js = "return " + Arguments.FIRST + ".getAttribute(" + Arguments.SECOND + ");")
     public String getAttribute;
 
-    @ExecBy(js = Arguments.FIRST + ".style.backgroundColor = " + Arguments.SECOND)
+    @Exec(js = Arguments.FIRST + ".style.backgroundColor = " + Arguments.SECOND)
     public String setBackgroundStyle;
 }

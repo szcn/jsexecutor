@@ -1,6 +1,6 @@
 package page;
 
-import annotation.ExecBy;
+import annotation.Exec;
 import manager.BuilderManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,12 +31,12 @@ public class UserRegisterPage
 
     /** Exec **/
 
-    @ExecBy(js = "document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click()")
+    @Exec(js = "document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click()")
     public String registerForm;
 
-    @ExecBy(jquery = "$('#agreement > label').click()")
+    @Exec(jquery = "$('#agreement > label').click()")
     public String agreement;
 
-    @ExecBy(path = "src/test/java/js/userForm.js", func = "individualForm")
+    @Exec(path = "src/test/java/js/userForm.js", func = "individualForm")
     public String fillUserForm;
 }

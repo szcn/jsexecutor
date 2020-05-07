@@ -44,10 +44,10 @@ public class RegisterPage
 
     /** Exec **/
 
-    @ExecBy(js = "document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();")
+    @Exec(js = "document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();")
     public String registerForm;
 
-    @ExecBy(jquery = "$('#agreement > label').click()")
+    @Exec(jquery = "$('#agreement > label').click()")
     public String agreement;
 }
 ```
@@ -66,7 +66,7 @@ public class UserDAO
         new BuilderManager(this);
     }
 
-    @ExecBy(sql = "SELECT NAME FROM USER WHERE ID = ?")
+    @Exec(sql = "SELECT NAME FROM USER WHERE ID = ?")
     private String userNameById;
 
 
@@ -106,8 +106,8 @@ public class UserTest
         jsExecutor
                 .goToUrl(registerPageUrl)
                 .sleep(5)
-                .setValue(registerPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .setValue(registerPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .setValue(registerPage.name, jsExecutor.randomGenerate(DataType.STRING,5))
+                .setValue(registerPage.surname, jsExecutor.randomGenerate(DataType.STRING,5))
                 .executeScript(registerPage.registerForm)
                 .executeScript(registerPage.agreement)
                 .click(registerPage.signup)
@@ -146,15 +146,15 @@ var corporateForm = function () {
 
 ```java
 
-public class FilePath
+public class RegisterPage
 {
 
-    public FilePath()
+    public RegisterPage()
     {
         new BuilderManager(this);
     }
     
-    @ExecBy(func = "individualForm", path = "js/userForm.js")
+    @Exec(func = "individualForm", path = "js/userForm.js")
     public String fillUserForm;
 }
 ```
@@ -166,7 +166,6 @@ public class UserTest
 {
     private WebDriver driver;
     private JavaScriptExecutor jsExecutor;
-    private FilePath filePath;
     private RegisterPage registerPage;
     
     @BeforeEach
@@ -176,7 +175,6 @@ public class UserTest
         driver = new ChromeDriver();
         jsExecutor = new JavaScriptExecutor(driver);
         registerPage = new RegisterPage(driver);
-        filePath = new FilePath();
 
     }
 
@@ -186,8 +184,8 @@ public class UserTest
         jsExecutor
                 .goToUrl(registerPageUrl)
                 .sleep(5)
-                .executeScriptWithinFile(filePath.fillUserForm);
-                .click(registerPage.signup)
+                .invokeFunction(registerPage.fillUserForm)
+                .click(registerPage.signup);
 
     }
 }
@@ -211,20 +209,20 @@ To add a dependency on JavascriptExecutor using Maven, use the following:
 <dependency>
   <groupId>com.jsexecutor</groupId>
   <artifactId>jsexecutor-core</artifactId>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
 </dependency>
 ```
 
 To add a dependency using Gradle Groovy:
 
 ```gradle
-implementation 'com.jsexecutor:jsexecutor-core:1.0.7'
+implementation 'com.jsexecutor:jsexecutor-core:1.0.8'
 ```
 
 To add a dependency using Gradle Kotlin:
 
 ```gradle
-implementation("com.jsexecutor:jsexecutor-core:1.0.7")
+implementation("com.jsexecutor:jsexecutor-core:1.0.8")
 ```
 
 All releases are available in
