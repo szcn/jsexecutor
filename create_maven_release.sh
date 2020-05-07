@@ -16,7 +16,7 @@ echo "$PWD"
 
 mvn --settings ~/.m2/"${settings}".xml clean install -Dgpg.skip
 
-echo "Singing and deploy to maven."
+echo "Singing"
 
 path=~/.m2/repository/com/jsexecutor/jsexecutor-core/"${version}"/jsexecutor-core-"${version}"
 
@@ -28,7 +28,3 @@ for jar in .jar .pom -javadoc.jar -sources.jar; do
   echo "Sign : $jar"
 
 done
-
-mvn --settings ~/.m2/"${settings}".xml clean deploy
-
-echo "Deploy finished."

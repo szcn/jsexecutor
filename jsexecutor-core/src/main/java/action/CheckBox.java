@@ -1,6 +1,6 @@
 package action;
 
-import annotation.ExecBy;
+import annotation.Exec;
 import constants.Constants.Arguments;
 import manager.BuilderManager;
 
@@ -12,7 +12,7 @@ public class CheckBox
         new BuilderManager(this);
     }
 
-    @ExecBy(js = "var checkboxes = document.querySelectorAll('[type=\"checkbox\"]');\n" +
+    @Exec(js = "var checkboxes = document.querySelectorAll('[type=\"checkbox\"]');\n" +
             "\n" +
             "var result; \n" +
             "\n" +
@@ -28,12 +28,12 @@ public class CheckBox
             "return result = true;")
     public String checkedControl;
 
-    @ExecBy(js = "var checkboxes = document.querySelectorAll(\"input[type='checkbox']\"); for(var i = 0; i < " +
+    @Exec(js = "var checkboxes = document.querySelectorAll(\"input[type='checkbox']\"); for(var i = 0; i < " +
             "checkboxes" +
             ".length; i++) {checkboxes[i].checked = true;}")
     public String allClick;
 
-    @ExecBy(js = "return " + Arguments.FIRST + ".checked;")
+    @Exec(js = "return " + Arguments.FIRST + ".checked;")
     public String checkBoxChecked;
 
 }

@@ -32,8 +32,8 @@ public class JsFileTest
     {
         jsExecutor
                 .goToUrl(url)
-                .sleep(5000)
-                .executeScriptWithinFile(userRegisterPage.fillUserForm);
+                .sleep(5)
+                .invokeFunction(userRegisterPage.fillUserForm);
     }
 
 

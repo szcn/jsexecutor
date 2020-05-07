@@ -6,7 +6,7 @@
 
     <groupId>com.jsexecutor</groupId>
     <artifactId>jsexecutor-core</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <packaging>jar</packaging>
     <name>Jsexecutor Core</name>
     <url>http://jsexecutor.com/</url>
@@ -105,6 +105,12 @@
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>17.0.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

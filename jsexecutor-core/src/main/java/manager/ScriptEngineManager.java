@@ -74,7 +74,7 @@ public class ScriptEngineManager
         {
             String firstLane = scanner.nextLine();
 
-            //TODO : shl add func
+            //TODO : shl add func & let
             if (firstLane.startsWith("var " + functionName))
             {
                 stringBuilder

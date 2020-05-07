@@ -7,11 +7,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import page.UserRegisterPage;
 import util.DataType;
 
-import javax.script.ScriptException;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 public class UserTest
 {
 
@@ -39,11 +34,12 @@ public class UserTest
         jsExecutor
                 .goToUrl(url)
                 .click(userRegisterPage.signup)
-                .sleep(5000)
-                .setValue(userRegisterPage.name, (String) jsExecutor.randomGenerate(DataType.STRING,5))
-                .setValue(userRegisterPage.surname,(String) jsExecutor.randomGenerate(DataType.STRING,5))
+                .sleep(5)
+                .setValue(userRegisterPage.name, String.valueOf(jsExecutor.randomGenerate(DataType.STRING,5)))
+                .setValue(userRegisterPage.surname, String.valueOf(jsExecutor.randomGenerate(DataType.STRING,5)))
                 .executeScript(userRegisterPage.registerForm)
-                .executeScript(userRegisterPage.agreement);
+                .executeScript(userRegisterPage.agreement)
+                .click(userRegisterPage.signup);
 
     }
 
