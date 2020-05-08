@@ -220,7 +220,7 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
      **/
 
     @Override
-    public JavaScriptExecutor scrollWithElement(WebElement element)
+    public JavaScriptExecutor scrollToElement(WebElement element)
     {
         return executeScript(Constants.Scroll.VIEW, element);
     }

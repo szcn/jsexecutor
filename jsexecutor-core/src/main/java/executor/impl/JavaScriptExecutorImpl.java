@@ -71,7 +71,7 @@ public interface JavaScriptExecutorImpl
      * @return JavaScriptExecutor
      **/
 
-    JavaScriptExecutor scrollWithElement(WebElement element);
+    JavaScriptExecutor scrollToElement(WebElement element);
 
     JavaScriptExecutor scrollHorizontally(int value);
 
