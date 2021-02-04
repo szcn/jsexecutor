@@ -194,6 +194,11 @@ public class UserTest
 
 For more information please read [Javascript Executor Documentation](http://jsexecutor.com)
 
+ChromeDriver
+-----------
+- for running tests against the Chrome browser;
+- download url: [https://sites.google.com/a/chromium.org/chromedriver/downloads](https://sites.google.com/a/chromium.org/chromedriver/downloads).
+
 Building 
 -----------
 
