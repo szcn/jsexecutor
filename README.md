@@ -201,13 +201,13 @@ For running tests against the Chrome browser; [Download Url](https://sites.googl
 Building 
 -----------
 
-you'll need:
+You'll need:
 
 Java 1.8+
 
 [Maven 3.3](http://maven.apache.org/download.cgi) or later
 
-To add a dependency on JavascriptExecutor using Maven, use the following:
+-To add a dependency on JavascriptExecutor using Maven, use the following:
 
 ```xml
 <dependency>
