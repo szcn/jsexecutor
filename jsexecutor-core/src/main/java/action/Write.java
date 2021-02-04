@@ -14,7 +14,6 @@ public class Write
     @Exec(js = Constants.Arguments.FIRST + ".value = " + Constants.Arguments.SECOND)
     public String setValue;
 
-    /** **/
     @Exec(func = "setValue", path = "src/main/java/script/write.js")
     public String setValueWithJSF;
 }

@@ -42,7 +42,7 @@ public class BuilderManager
                     jField.set(clz, exec.func());
                 if (!exec.func().isEmpty() && !exec.path().isEmpty())
                 {
-                    jField.set(clz, "func["+ exec.func()+"]"+"path["+ exec.path()+"]");
+                    jField.set(clz, "func[" + exec.func() + "]" + "path[" + exec.path() + "]");
                 }
             }
             catch (IllegalAccessException ae)
@@ -65,21 +65,17 @@ public class BuilderManager
             try
             {
                 locatorType = object.toString().split(Regex.FINDER_TYPE_FOR_WEB_ELEMENT)[1].split(":")[0];
-
             }
             catch (ArrayIndexOutOfBoundsException o)
             {
                 locatorType = object.toString().replaceAll(Regex.FINDER_TYPE, "");
                 if (locatorType.equals("Proxy element for"))
                 {
-
                     locatorType = object.toString().split(Regex.FINDER_PROXY)[1].split(":")[0];
                 }
-
             }
             catch (Exception e)
             {
-
                 locatorType = object.toString().split(Regex.FINDER_PROXY)[1].split(":")[0];
             }
         }
@@ -124,5 +120,4 @@ public class BuilderManager
             return object.toString().split(Regex.FINDER_VALUE)[1].split("(.$)")[0];
         }
     }
-
 }

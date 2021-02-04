@@ -29,7 +29,6 @@ public class Click
     @Exec(js = "var el = document.querySelectorAll(" + Arguments.FIRST + "); const rect = el[" + Arguments.SECOND + "].getBoundingClientRect(); const windowHeight = (window.innerHeight || document.documentElement.clientHeight); const windowWidth = (window.innerWidth || document.documentElement.clientWidth); const vertInView = (rect.top <= windowHeight) && ((rect.top + rect.height) >= 0); const horInView = (rect.left <= windowWidth) && ((rect.left + rect.width) >= 0); if (vertInView & horInView){el[" + Arguments.SECOND + "].click();}")
     public String cssAll;
 
-    //TODO fix me (singleNodeValue)
     @Exec(js = "var el = document.evaluate(" + Arguments.FIRST + ", document, null,XPathResult.ANY_TYPE, null); var item = el.iterateNext(" + Arguments.SECOND + "); const rect = item.getBoundingClientRect(); const windowHeight = (window.innerHeight || document.documentElement.clientHeight); const windowWidth = (window.innerWidth || document.documentElement.clientWidth); const vertInView = (rect.top <= windowHeight) && ((rect.top + rect.height) >= 0); const horInView = (rect.left <= windowWidth) && ((rect.left + rect.width) >= 0); if (vertInView & horInView){item.click();}")
     public String xpathAll;
 

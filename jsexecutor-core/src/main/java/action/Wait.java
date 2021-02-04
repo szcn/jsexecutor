@@ -12,16 +12,12 @@ public class Wait
         new BuilderManager(this);
     }
 
-    /**
-     * wait
-     **/
-
     @Exec(js = "var callback = arguments[arguments.length - 1]; var xhr = new XMLHttpRequest(); xhr.open('GET', '/Ajax_call', true); " +
             "xhr.onreadystatechange = function() {if (xhr.readyState == 4) { callback(xhr.responseText);}}; xhr.send();" )
     public String ajaxComplete;
 
     /**
-     * Her 500 ms için kontrol eder elementi
+     * tries for X ms with 500 milliseconds interval
      * Object First: element
      * Object Second : ms
      */

@@ -43,6 +43,11 @@
         <tag>HEAD</tag>
     </scm>
 
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/szcn/jsexecutor/issues</url>
+    </issueManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -302,5 +307,4 @@
             <url>${maven2.url}</url>
         </repository>
     </distributionManagement>
-
 </project>

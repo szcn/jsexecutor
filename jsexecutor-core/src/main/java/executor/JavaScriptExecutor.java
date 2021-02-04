@@ -54,15 +54,12 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     @Override
     public JavaScriptExecutor getDriver(WebDriver driver)
     {
-
         return (JavaScriptExecutor) driver;
-
     }
 
     @Override
     public <T> T executeScript(Class<T> clazz, String script, Object... args)
     {
-
         //log.info("*** JavaScript Info : { " + script + " }", "Argument Info : { " + args + " }");
 
         return clazz.cast(jExecutor.executeScript(script, args));
@@ -71,7 +68,6 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     @Override
     public JavaScriptExecutor executeScript(String script, Object... args)
     {
-
         //log.info("*** JavaScript Info : { " + script + " }", "Argument Info : { " + args + " }");
         jExecutor.executeScript(script, args);
 
@@ -82,11 +78,8 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     @Override
     public JavaScriptExecutor invokeFunction(String var) throws IOException
     {
-
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
-
         jExecutor.executeScript(scriptEngineManager.eval(var));
-
         return this;
     }
 
@@ -95,19 +88,14 @@ public class JavaScriptExecutor implements JavaScriptExecutorImpl
     {
 
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
-
-
         return clazz.cast(jExecutor.executeScript(scriptEngineManager.eval(var)));
     }
 
     @Override
     public JavaScriptExecutor invokeFunction(String var, Object... args) throws IOException
     {
-
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
-
         jExecutor.executeScript(scriptEngineManager.eval(var),args);
-
         return this;
     }
 

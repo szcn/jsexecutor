@@ -15,7 +15,6 @@ import java.util.Objects;
 
 public class CastManager
 {
-
     private RemoteWebDriver remoteWebDriver;
     private WebDriver webDriver;
 
@@ -40,48 +39,36 @@ public class CastManager
 
     public WebElement castWebElement(Object o)
     {
-
         By by = (By) o;
-
         if (Objects.nonNull(webDriver))
         {
-
             return webElement(webDriver, by);
         }
-
         else if (Objects.nonNull(remoteWebDriver))
         {
-
             return webElement(remoteWebDriver, by);
         }
         else
         {
             throw new JavaScriptExecutorException("Driver is null");
         }
-
     }
 
     public List<WebElement> castWebElements(Object o)
     {
-
         By by = (By) o;
-
         if (Objects.nonNull(webDriver))
         {
-
             return webElements(webDriver, by);
         }
-
         else if (Objects.nonNull(remoteWebDriver))
         {
-
             return webElements(remoteWebDriver, by);
         }
         else
         {
             throw new JavaScriptExecutorException("Driver is null");
         }
-
     }
 
     private WebElement webElement(WebDriver webDriver, By by)
@@ -103,6 +90,4 @@ public class CastManager
     {
         return remoteWebDriver.findElements(by);
     }
-
-
 }

@@ -13,10 +13,6 @@ public class Attribute
         new BuilderManager(this);
     }
 
-    /**
-     * isAttribute
-     **/
-
     @Exec(js = "var value = " + Arguments.FIRST + ".getAttribute(" + Arguments.SECOND + "); if(value !== null) {return true} else return false;")
     public String isAttributePresent;
 
