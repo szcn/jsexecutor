@@ -11,7 +11,7 @@ For more information visit http://jsexecutor.com.
 
 # Sample Usage
 
-Please refer to [examples](https://github.com/szcn/jsexecutor/examples).
+Please refer to [examples](https://github.com/szcn/jsexecutor/tree/master/examples).
 
 <!-- For more examples please refer to [Javascript Executor Examples Project](http://jsexecutor.com)> -->
 
