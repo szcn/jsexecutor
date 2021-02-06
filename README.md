@@ -3,211 +3,33 @@
 [![Apache License, Version 2.0, January 2004](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Maven Central](https://img.shields.io/maven-central/v/com.jsexecutor/jsexecutor-core.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.jsexecutor/jsexecutor-core/1.0.8/jar)
 [![Latest release](https://img.shields.io/github/release/szcn/jsexecutor.svg)](https://github.com/szcn/jsexecutor/releases/latest)
+[![Build Status](https://travis-ci.com/szcn/jsexecutor.svg?branch=master)](https://travis-ci.com/szcn/jsexecutor)
 
-master: [![Build Status](https://travis-ci.com/szcn/jsexecutor.svg?branch=master)](https://travis-ci.com/szcn/jsexecutor)
+JavascriptExecutor is an open-source tool for testing web and responsive functionality. It is also a functional testing framework.
 
-JavascriptExecutor is an open-source tool for testing web and responsive functional. It is also a functional testing framework.
+For more information visit http://jsexecutor.com.
 
-For more information visit http://jsexecutor.com , http://javascriptexecutor.com
+# Sample Usage
 
+Please refer to [examples](https://github.com/szcn/jsexecutor/examples).
 
+<!-- For more examples please refer to [Javascript Executor Examples Project](http://jsexecutor.com)> -->
 
-How does it work?
-------------
-###...
-Here is a small example of basic syntax.
+# Running Against Chrome Browser
 
-### Page
-```java
+In order to be able to run JavascriptExecutor against the Chrome Browser, you need to download the [ChromDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads).
 
-public class RegisterPage
-{
+# Building
 
-    public RegisterPage(WebDriver driver)
-    {
-        PageFactory.initElements(driver, this);
-        new BuilderManager(this);
-    }
+## Prerequisites
 
-    @FindBy(css = ".register-text >a")
-    public WebElement signup;
+- Java 1.8+
 
-    @FindBy(id = "name")
-    public WebElement name;
+- [Maven 3.3](http://maven.apache.org/download.cgi) or later
 
-    @FindBy(id = "surname")
-    public WebElement surname;
+## Maven
 
-    @FindBy(xpath = "//input[@id='email']")
-    public WebElement email;
-
-
-    /** Exec **/
-
-    @Exec(js = "document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();")
-    public String registerForm;
-
-    @Exec(jquery = "$('#agreement > label').click()")
-    public String agreement;
-}
-```
-    
-### Dao
-
-```java
-
-public class UserDAO
-{
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    public UserDAO()
-    {
-        new BuilderManager(this);
-    }
-
-    @Exec(sql = "SELECT NAME FROM USER WHERE ID = ?")
-    private String userNameById;
-
-
-    public String findUserNameById(Long id) {
-
-        return jdbcTemplate.queryForObject(userNameById, new Object[]{id}, String.class);
-
-    }
-
-}
-```
-
-### Test
-
-```java
-public class UserTest
-{
-    private WebDriver driver;
-    private JavaScriptExecutor jsExecutor;
-    private RegisterPage registerPage;
-    private UserDAO userDAO;
-
-    @BeforeEach
-    public void before(){
-
-        System.setProperty("webdriver.chrome.driver", path);
-        driver = new ChromeDriver();
-        jsExecutor = new JavaScriptExecutor(driver);
-        registerPage = new RegisterPage(driver);
-        userDAO = new UserDAO();
-
-    }
-
-    @Test
-    public void userRegisterTest(){
-
-        jsExecutor
-                .goToUrl(registerPageUrl)
-                .sleep(5)
-                .setValue(registerPage.name, jsExecutor.randomGenerate(DataType.STRING,5))
-                .setValue(registerPage.surname, jsExecutor.randomGenerate(DataType.STRING,5))
-                .executeScript(registerPage.registerForm)
-                .executeScript(registerPage.agreement)
-                .click(registerPage.signup)
-                .assertEqual(userName,userDAO.findUserNameById(userId));
-
-    }
-}
-```
-
-### JS File : userForm.js
-
-```javascript
-
-var individualForm = function () {
-
-    document.getElementById('name').value = "testname";
-    document.getElementById('surname').value = "testsurname";
-    document.getElementById('email').value = "test@jsexecutor.com";
-    document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();
-    document.querySelector('#agreement > label').click();
-
-};
-
-var corporateForm = function () {
-
-    document.getElementById('name').value = "testname";
-    document.getElementById('surname').value = "testsurname";
-    document.getElementById('email').value = "test@jsexecutor.com";
-    document.querySelector('#registerForm > dl.eula-area > dd:nth-child(1) > label').click();
-    document.querySelector('#agreement > label').click();
-
-};
-
-```
-### File Path
-
-```java
-
-public class RegisterPage
-{
-
-    public RegisterPage()
-    {
-        new BuilderManager(this);
-    }
-    
-    @Exec(func = "individualForm", path = "js/userForm.js")
-    public String fillUserForm;
-}
-```
-
-### Test
-
-```java
-public class UserTest
-{
-    private WebDriver driver;
-    private JavaScriptExecutor jsExecutor;
-    private RegisterPage registerPage;
-    
-    @BeforeEach
-    public void before(){
-
-        System.setProperty("webdriver.chrome.driver", path);
-        driver = new ChromeDriver();
-        jsExecutor = new JavaScriptExecutor(driver);
-        registerPage = new RegisterPage(driver);
-
-    }
-
-    @Test
-    public void userRegisterTest(){
-
-        jsExecutor
-                .goToUrl(registerPageUrl)
-                .sleep(5)
-                .invokeFunction(registerPage.fillUserForm)
-                .click(registerPage.signup);
-
-    }
-}
-
-```
-
-For more information please read [Javascript Executor Documentation](http://jsexecutor.com)
-
-ChromeDriver
------------
-For running tests against the Chrome browser; [Download Url](https://sites.google.com/a/chromium.org/chromedriver/downloads).
-
-Building 
------------
-
-You'll need:
-
-Java 1.8+
-
-[Maven 3.3](http://maven.apache.org/download.cgi) or later
-
-* To add a dependency on JavascriptExecutor using Maven, use the following:
+Add the following dependency in your Pom.xml file to use JavascriptExecutor with Maven:
 
 ```xml
 <dependency>
@@ -217,35 +39,40 @@ Java 1.8+
 </dependency>
 ```
 
-* To add a dependency using Gradle Groovy:
+## Gradle Groovy
+
+Add the following to use JavascriptExecutor with Gradle Groovy:
+
 
 ```gradle
 implementation 'com.jsexecutor:jsexecutor-core:1.0.8'
 ```
 
-* To add a dependency using Gradle Kotlin:
+## Gradle Kotlin
+
+Add the following to use JavascriptExecutor with Gradle Groovy:
 
 ```gradle
 implementation("com.jsexecutor:jsexecutor-core:1.0.8")
 ```
 
-All releases are available in
-[Central Repository](https://search.maven.org/artifact/com.jsexecutor/jsexecutor-core/1.0.5/jar)
+All releases are available at [Maven Central Repository](https://search.maven.org/artifact/com.jsexecutor/jsexecutor-core/1.0.5/jar).
 
 
+# Testing
 
-Testing
------------
+Project can be tested by the following maven command:
+
 ```mvn clean test```.
 
 
-Contribute
------------
-Contributions are always welcome!
-Please read the [contribution guidelines](CONTRIBUTING.md) first.
+# Contribution
+
+Contributions are always welcomed!
+
+Please read the [contribution guidelines](CONTRIBUTING.md).
 
 
-License
-------------
+# License
 
-Javascript Executor Framework is licensed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+Javascript Executor Framework is licensed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
