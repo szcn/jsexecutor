@@ -7,6 +7,10 @@
 
 JavascriptExecutor is an open-source tool for testing web and responsive functionality. It is also a functional testing framework.
 
+# For Java Projects
+ - It enables to write and execute your scenarios and helper methods in js file.
+ - It enables to model your scripts in your Java classes. (PSM)
+
 For more information visit http://jsexecutor.com.
 
 # Sample Usage
